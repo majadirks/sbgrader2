@@ -296,7 +296,13 @@ def fill_overall_scores(driver,
         print(f"Writing score {score_to_write} at index {student_index}")
         clicked_box = driver.switch_to.active_element
         clicked_box.send_keys(score_to_write)
-        clicked_box.send_keys(Keys.ENTER)  # press enter
+        # Write comment
+        driver.switch_to.parent_frame
+        comment_box = driver.find_element_by_id('txt_NotesPublic')
+        comment_box.click()
+        comment_box.send_keys("This is a comment")
+        # Press Enter to move to next score box
+        comment_box.send_keys(Keys.ENTER)
     driver.switch_to.parent_frame
     return True
 
