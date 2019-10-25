@@ -2,6 +2,8 @@ Dependencies to run this:
 Python
 selenium (install from home)
 web driver for Firefox/Chrome/whatevs (in PATH)
+
+
 Gradebook format:
   (i) LT assignments in format 'LT1A Brief Description' (start with 'LT' and then a code of some sort, with no space in between, then a space, then a brief description)
   (ii) Assignment for overall grade that contains the word 'overall' and does not start with 'LT' (e.g. 'Overall LT Grade' is okay)
@@ -10,7 +12,9 @@ Gradebook format:
               'Previous scores: 1 2.5 3'
               'Previous scores: 1 (5/28 - try again!), 2.5 3'
               'Previous scores: 1 (5/28), 2.5 (6/1 - getting there!!!), 3 Good job :)'
-        Program will look for 'Previous scores:', and then try to parse 
-        scores. It will ignore anything in parentheses. Commas and/or spaces
+              'Previous: 1, 2.5, 3'
+        Program will look for 'Previous scores:' or 'Previous:',
+        and then try to parse scores. 
+        It will ignore anything in parentheses. Commas and/or spaces
         separate scores. If it encounters an invalid character outside of
         parentheses, it assumes the score list is over.
