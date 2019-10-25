@@ -388,7 +388,14 @@ def parse_score_history_from_comment(comment):
     Starting phrases are not case sensitive.
     '''
     comment = comment.upper()
-    starting_phrases = ['PREVIOUS SCORES:', 'PREVIOUS:', 'PAST SCORES:']
+    starting_phrases = ['PREVIOUS SCORE:',
+                        'PREVIOUS SCORES:',
+                        'PREVIOUS:',
+                        'PAST SCORE:',
+                        'PAST SCORES:',
+                        'OLD SCORE:',
+                        'OLD SCORES:',
+                        ]
     phrase_index = -1  # Initialize as nonsense
     phrase_len = 0  # length of phrase
     for phrase in starting_phrases:
