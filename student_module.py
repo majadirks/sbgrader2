@@ -408,7 +408,7 @@ if __name__ == "__main__":
     # Test remove_everything_between_parens
     print("Testing remove_everything_between_parens():")
     assert remove_everything_between_parens(
-            'hello (world) of mine') =='hello  of mine'  # NB: Two spaces
+            'hello (world) of mine') == 'hello  of mine'  # NB: Two spaces
     assert remove_everything_between_parens(
             'hello (world)') == 'hello'
     assert remove_everything_between_parens(
@@ -418,6 +418,7 @@ if __name__ == "__main__":
             'hello) world') == 'hello world'
     assert remove_everything_between_parens(
             'well )hello there( world') == 'well hello there'
+
     # Test parse_score_history_from_comment
     print("Testing parse_score_history_from_comment()")
     assert parse_score_history_from_comment("no comment") == []
@@ -432,3 +433,6 @@ if __name__ == "__main__":
             "Previous: 1 2.5 3") == [1, 2.5, 3]
     # Test with mismatched parentheses
     assert parse_score_history_from_comment("Previous: 1, (2, 3") == [1]
+
+    # Print final success message
+    print("All tests passed successfully!")
