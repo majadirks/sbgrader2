@@ -394,8 +394,7 @@ def parse_score_history_from_comment(comment):
                         'PAST SCORE:',
                         'PAST SCORES:',
                         'OLD SCORE:',
-                        'OLD SCORES:',
-                        ]
+                        'OLD SCORES:']
     phrase_index = -1  # Initialize as nonsense
     phrase_len = 0  # length of phrase
     for phrase in starting_phrases:
