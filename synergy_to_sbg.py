@@ -242,7 +242,7 @@ def assignment_exists_with_keyword(driver, keyword):
 
 def fill_overall_scores(driver,
                         scores,
-                        comments,
+                        comments=[],
                         keyword=OVERALL_GRADE_KEYWORD):
     '''
     This function takes three arguments:
@@ -250,16 +250,21 @@ def fill_overall_scores(driver,
             gradebook page;
         (ii) scores, a list of overall grades (ints),
              one per student;
-        (iii) comments, a list of comments (strings), one per student
+        (iii) comments, a list of comments (strings), one per student;
+                blank by default
         (iv) A keyword that is found only in the overall grade column.
              By default this should be something like "Overall".
     It returns True on success, False on failure.
     Note that the grades must be ints or errors will occur!
     '''
+    student_count = len(get_student_list(driver))
     # Take care of a few conventions
     keyword = keyword.upper()
+    # If no comments given, change it to a list of empty comments
+    if comments == []:
+        comments = ['']*student_count
     # Validate data
-    student_count = len(get_student_list(driver))
+    # Make sure all scores are ints
     for score in scores:
         if type(score) != int:
             print("Error: fill_overall_scores expects a list of ints.")
@@ -302,13 +307,18 @@ def fill_overall_scores(driver,
     for student_index in range(len(scores)):
         clicked_box = driver.switch_to.active_element
         clicked_box.send_keys(scores[student_index])
-        # Write comment
-        driver.switch_to.parent_frame
-        comment_box = driver.find_element_by_id('txt_NotesPublic')
-        comment_box.click()
-        comment_box.send_keys(comments[student_index])
-        # Press Enter to move to next score box
-        comment_box.send_keys(Keys.ENTER)
+        # Write comment if applicable
+        comment = comments[student_index]
+        if comment != '':
+            driver.switch_to.parent_frame
+            comment_box = driver.find_element_by_id('txt_NotesPublic')
+            comment_box.click()
+            comment_box.send_keys(comments[student_index])
+            # Press Enter to move to next score box
+            comment_box.send_keys(Keys.ENTER)
+        else:
+            # Press Enter to move to the next score box
+            clicked_box.send_keys(Keys.ENTER)
     driver.switch_to.parent_frame
     return True
 
@@ -320,5 +330,5 @@ if __name__ == "__main__":
     # cp = create_classperiod_from_synergy(browser)
     # print(cp)
     scores = list(range(20))  # Just for testing purposes, need a 20-elt list
-    comments = ["This is a comment"] * 20
+    comments = ["comment"] * 20
     fill_overall_scores(browser, scores, comments, 'IGNORE')
