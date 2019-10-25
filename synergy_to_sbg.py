@@ -189,7 +189,7 @@ def initialize_driver_with_user_input():
     browser = webdriver.Chrome()
     browser.get(
             'https://wa-bsd405.edupoint.com/')
-    input("Press Enter to download gradebook data>")
+    input("Press Enter to select current gradebook page>")
     # Focus on source for main frame in current browser window
     browser.switch_to.frame(browser.find_element_by_id('FRAME_CONTENT'))
     return browser
@@ -242,6 +242,7 @@ def assignment_exists_with_keyword(driver, keyword):
 
 def fill_overall_scores(driver,
                         scores,
+                        comments,
                         keyword=OVERALL_GRADE_KEYWORD):
     '''
     This function takes three arguments:
@@ -249,13 +250,16 @@ def fill_overall_scores(driver,
             gradebook page;
         (ii) scores, a list of overall grades (ints),
              one per student;
-        (iii) A keyword that is found only in the overall grade column.
+        (iii) comments, a list of comments (strings), one per student
+        (iv) A keyword that is found only in the overall grade column.
              By default this should be something like "Overall".
     It returns True on success, False on failure.
     Note that the grades must be ints or errors will occur!
     '''
     # Take care of a few conventions
     keyword = keyword.upper()
+    # Validate data
+    student_count = len(get_student_list(driver))
     for score in scores:
         if type(score) != int:
             print("Error: fill_overall_scores expects a list of ints.")
@@ -267,8 +271,12 @@ def fill_overall_scores(driver,
         print(f"Expected to find keyword {keyword}, but could not find it.")
         return False
     # Make sure number of scores == number of students
-    if not len(scores) == len(get_student_list(driver)):
+    if len(scores) != student_count:
         print("Error: score count does not match student count.")
+        return False
+    # Make sure number of comments == number of students
+    if len(comments) != student_count:
+        print("Error: comment count does not match student count.")
         return False
     # Find column that contains the overall scores
     assignment_elts = driver.find_element_by_id(
@@ -292,15 +300,13 @@ def fill_overall_scores(driver,
     score_boxes[overall_grade_column].click()
     # Write first score, press enter, and move down the list.
     for student_index in range(len(scores)):
-        score_to_write = scores[student_index]
-        print(f"Writing score {score_to_write} at index {student_index}")
         clicked_box = driver.switch_to.active_element
-        clicked_box.send_keys(score_to_write)
+        clicked_box.send_keys(scores[student_index])
         # Write comment
         driver.switch_to.parent_frame
         comment_box = driver.find_element_by_id('txt_NotesPublic')
         comment_box.click()
-        comment_box.send_keys("This is a comment")
+        comment_box.send_keys(comments[student_index])
         # Press Enter to move to next score box
         comment_box.send_keys(Keys.ENTER)
     driver.switch_to.parent_frame
@@ -314,4 +320,5 @@ if __name__ == "__main__":
     # cp = create_classperiod_from_synergy(browser)
     # print(cp)
     scores = list(range(20))  # Just for testing purposes, need a 20-elt list
-    fill_overall_scores(browser, scores, 'IGNORE')
+    comments = ["This is a comment"] * 20
+    fill_overall_scores(browser, scores, comments, 'IGNORE')
