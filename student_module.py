@@ -355,7 +355,7 @@ def remove_everything_between_parens(string_to_clean):
     it is removed.
     The string is stripped of leading/trailing whitespace and then
     returned.
-    Examples: 
+    Examples:
         'hello (world) of mine' -> 'hello  of mine'
                         (two spaces between 'hello' and 'of'!)
         'hello (world)' -> 'hello'
@@ -363,7 +363,9 @@ def remove_everything_between_parens(string_to_clean):
         'hello )world' -> 'hello world'
         'well )hello there( world' -> 'well hello there'
     '''
+    # TODO
     pass
+
 
 def parse_score_history_from_comment(comment):
     '''
@@ -399,7 +401,7 @@ def parse_score_history_from_comment(comment):
     # Remove starting phrase and everything before it
     comment = comment[phrase_index + phrase_len:]
     # Remove everything between parentheses.
-    # 
+    # TODO
     pass
 
 
