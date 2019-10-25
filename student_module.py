@@ -363,8 +363,21 @@ def remove_everything_between_parens(string_to_clean):
         'hello )world' -> 'hello world'
         'well )hello there( world' -> 'well hello there'
     '''
-    # TODO
-    pass
+    # TODO. Use slicing.
+    # Cut out clean parentheses (matching)
+    # and '( with no ')'
+    while '(' in string_to_clean:
+        start_paren_index = string_to_clean.find('(')
+        tail = string_to_clean[start_paren_index:]  # Parenthesis onward
+        if ')' in tail:
+            end_paren_index = tail.find(')')
+        else:
+            end_paren_index = len(string_to_clean) - 1
+        string_to_clean = string_to_clean[:start_paren_index] + \
+            string_to_clean[end_paren_index + 1:]
+    # Replace any remaining ')'s
+    string_to_clean = string_to_clean.replace(')', '')
+    return string_to_clean
 
 
 def parse_score_history_from_comment(comment):
