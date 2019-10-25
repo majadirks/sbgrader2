@@ -343,3 +343,43 @@ def remove_lt(student, lt_label):
     assert lt_label in student.scores
     student.scores.pop(lt_label)
     return student
+
+
+def parse_score_history_from_comment(comment):
+    '''
+    This function takes a string (a comment in a gradebook)
+    and returns a list of the student's score history.
+    Comments may contain previous scores in in the following formats:
+        'Previous scores: 1, 2.5, 3'
+        'Previous scores: 1 2.5 3'
+        'Previous scores: 1 (5/28 - try again!), 2.5 3'
+    'Previous scores: 1 (5/28), 2.5 (6/1 - getting there!!!), 3 Good job :)'
+        'Previous: 1, 2.5, 3'
+        Program will look for 'Previous scores:' or 'Previous:',
+        and then try to parse scores.
+        It will ignore anything in parentheses. Commas and/or spaces
+        separate scores. If it encounters an invalid character outside of
+        parentheses, it assumes the score list is over.
+    If no starting phrase ('Previous scores:' or 'Previous:') is found,
+    the function returns an empty list. Otherwise, it returns
+    a list of the scores.
+    Starting phrases are not case sensitive.
+    '''
+    # TODO
+    pass
+
+
+# Unit tests
+if __name__ == "__main__":
+    # Test parse_score_history_from_comment
+    print("Testing parse_score_history_from_comment()")
+    assert parse_score_history_from_comment("no comment") == []
+    assert parse_score_history_from_comment(
+            "yadayadayada PREVIOUS SCORES: 1, 2.5, 3") == [1, 2.5, 3]
+    assert parse_score_history_from_comment(
+            'previous scores: 1 2.5 3') == [1, 2.5, 3]
+    assert parse_score_history_from_comment(
+            "Previous scores: 1 (5/28), 2.5 (6/1 - getting there!!!), " +
+            "3 Good job :)") == [1, 2.5, 3]
+    assert parse_score_history_from_comment(
+            "Previous: 1 2.5 3") == [1, 2.5, 3]
