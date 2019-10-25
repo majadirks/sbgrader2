@@ -5,7 +5,7 @@ sbgrader2 next steps:
   * **DONE** Figure out which columns are LTs (probably by "Contains LT" and "does not contain "Overall"; also look at assignment type, which could be "LT" or "Learning Target" or "LearningTarget").
 * **DONE** Calculate overall grades and output string
 * **DONE** Fill data to Synergy using selenium, both in score boxes and comment fields
-* Write previous scores in comment fields
+* ~~Write previous scores in comment fields~~
 * Read previous scores from comments field
 * **DONE** Code a score of -1 as exempt/not calculated (in NGOG)
 
