@@ -1,12 +1,12 @@
-Sbgrader next steps:
+sbgrader2 next steps:
 
-* Figure out how to scrape Synergy (using selenium?)
-* Interface to create ClassPeriod from a Synergy page.
-  * Figure out which columns are LTs (probably by "Contains LT" and "does not contain "Overall"; also look at assignment type, which could be "LT" or "Learning Target" or "LearningTarget").
-* Calculate overall grades and output string
+* **DONE** Figure out how to scrape Synergy (using selenium?) 
+* **DONE** Interface to create ClassPeriod from a Synergy page.
+  * **DONE** Figure out which columns are LTs (probably by "Contains LT" and "does not contain "Overall"; also look at assignment type, which could be "LT" or "Learning Target" or "LearningTarget").
+* **DONE** Calculate overall grades and output string
 * Fill to Synergy using Selenium, including previous scores in comments field
 * Read previous scores from comments field
-* Code a score of -1 as exempt/not calculated (in NGOG) **DONE!**
+* **DONE** Code a score of -1 as exempt/not calculated (in NGOG)
 
 * Make reports nice via Markdown
 
@@ -27,7 +27,7 @@ Sbgrader next steps:
   * ClassPeriod datafiles each saved to their own subfolder
   * Options: import from Synergy, generate reports, save local copy, export to Synergy, etc.
 
-* make public repo after deleting senstiive data
+* make public repo after deleting senstive data
 
-* Write up install guide
+* Write up an install guide
 * package as exe file (use py2exe)
