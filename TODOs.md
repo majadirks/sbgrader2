@@ -4,11 +4,15 @@ sbgrader2 next steps:
 * **DONE** Interface to create ClassPeriod from a Synergy page.
   * **DONE** Figure out which columns are LTs (probably by "Contains LT" and "does not contain "Overall"; also look at assignment type, which could be "LT" or "Learning Target" or "LearningTarget").
 * **DONE** Calculate overall grades and output string
-* Fill to Synergy using Selenium, including previous scores in comments field
+* **DONE** Fill data to Synergy using selenium, both in score boxes and comment fields
+* Write previous scores in comment fields
 * Read previous scores from comments field
 * **DONE** Code a score of -1 as exempt/not calculated (in NGOG)
 
-* Make reports nice via Markdown
+* Reports:
+  * Make reports nice via Markdown or TeX
+  * Convert reports to PDF
+  * Code to print all the reports
 
 * login (with district id) for different preferences
   * prefs stored in user_prefs.txt
