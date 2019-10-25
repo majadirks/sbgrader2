@@ -27,7 +27,7 @@ sbgrader2 next steps:
   * ClassPeriod datafiles each saved to their own subfolder
   * Options: import from Synergy, generate reports, save local copy, export to Synergy, etc.
 
-* make public repo after deleting senstive data
+* make repo public
 
 * Write up an install guide
 * package as exe file (use py2exe)
