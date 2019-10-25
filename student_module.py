@@ -344,6 +344,26 @@ def remove_lt(student, lt_label):
     student.scores.pop(lt_label)
     return student
 
+def remove_everything_between_parens(string_to_clean):
+    '''
+    This function takes a string input and returns the same string
+    but with all characters between parentheses removed, as well as
+    the parentheses themselves.
+    If there is an open paren with no closing paren, everything after
+    the opening paren is removed.
+    If there is a closing paren without an opening paren,
+    it is removed.
+    The string is stripped of leading/trailing whitespace and then
+    returned.
+    Examples: 
+        'hello (world) of mine' -> 'hello  of mine'
+                        (two spaces between 'hello' and 'of'!)
+        'hello (world)' -> 'hello'
+        'hello (world' -> 'hello'
+        'hello )world' -> 'hello world'
+        'well )hello there( world' -> 'well hello there'
+    '''
+    pass
 
 def parse_score_history_from_comment(comment):
     '''
@@ -365,12 +385,39 @@ def parse_score_history_from_comment(comment):
     a list of the scores.
     Starting phrases are not case sensitive.
     '''
-    # TODO
+    comment = comment.upper()
+    starting_phrases = ['PREVIOUS SCORES:', 'PREVIOUS:', 'PAST SCORES:']
+    phrase_index = -1  # Initialize as nonsense
+    phrase_len = 0  # length of phrase
+    for phrase in starting_phrases:
+        if phrase in comment:
+            phrase_index = comment.find(phrase)
+            phrase_len = len(phrase)
+            break
+    if phrase_index == -1:  # If phrase not found
+        return []
+    # Remove starting phrase and everything before it
+    comment = comment[phrase_index + phrase_len:]
+    # Remove everything between parentheses.
+    # 
     pass
 
 
 # Unit tests
 if __name__ == "__main__":
+    # Test remove_everything_between_parens
+    print("Testing remove_everything_between_parens():")
+    assert remove_everything_between_parens(
+            'hello (world) of mine') =='hello  of mine'  # NB: Two spaces
+    assert remove_everything_between_parens(
+            'hello (world)') == 'hello'
+    assert remove_everything_between_parens(
+            'hello (world of mine') == 'hello'  # Missing closing paren
+    # Ignore and remove closing paren that has no opening paren
+    assert remove_everything_between_parens(
+            'hello) world') == 'hello world'
+    assert remove_everything_between_parens(
+            'well )hello there( world') == 'well hello there'
     # Test parse_score_history_from_comment
     print("Testing parse_score_history_from_comment()")
     assert parse_score_history_from_comment("no comment") == []
@@ -383,3 +430,5 @@ if __name__ == "__main__":
             "3 Good job :)") == [1, 2.5, 3]
     assert parse_score_history_from_comment(
             "Previous: 1 2.5 3") == [1, 2.5, 3]
+    # Test with mismatched parentheses
+    assert parse_score_history_from_comment("Previous: 1, (2, 3") == [1]
