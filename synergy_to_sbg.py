@@ -175,34 +175,35 @@ def get_lt_score_matrix(driver, list_of_lts):
     '''
     # Build matrix of scores and comments
     # Iterate through all score boxes and save the ones from LT columns
+    all_score_boxes[0].click()
     student_index = 0
     for box_index, box in enumerate(all_score_boxes):
-        # box.click()
-        clicked_box = driver.switch_to.active_element
         print(f"Box index = {box_index}, student index = {student_index}")
+        # Switch to current box
+        clicked_box = driver.switch_to.active_element 
+        # If current box is in an LT column, read and store
+        # score and comments
         if box_index in lt_column_indices:
             print("This is an LT column.")
-            # Move to next student if we've read
-            # all of the current student's scores
-            if (student_index + 1) % assignment_count == 0:
-                print(f"Incrementing student index to {student_index+1}")
-                student_index += 1
-                score_matrix.append([])
-                comment_matrix.append([])
             # Read score from currently active box
             score = clicked_box.text
             score_matrix[student_index].append(score)
             # Read comment from comment box
-            driver.switch_to.parent_frame
+            # driver.switch_to.parent_frame
             comment_box = driver.find_element_by_id('txt_NotesPublic')
             comment = comment_box.text
             comment_matrix.append(comment_box)
             print(f"Read score '{score}' with comment '{comment}'")
-            # Switch back to box
-            clicked_box = driver.switch_to.active_element
         # Press right arrow to move to next score
         print("Moving right ->")
         clicked_box.send_keys(Keys.RIGHT)
+        # Move to next student if we've read
+        # all of the current student's scores
+        if box_index % assignment_count == 0:
+            print(f"Incrementing student index to {student_index+1}")
+            student_index += 1
+            score_matrix.append([])
+            comment_matrix.append([])
     return (score_matrix, comment_matrix)
 
     
