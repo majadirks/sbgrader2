@@ -6,7 +6,7 @@ sbgrader2 next steps:
 * **DONE** Calculate overall grades and output string
 * **DONE** Fill data to Synergy using selenium, both in score boxes and comment fields
 * ~~Write previous scores in comment fields~~
-* Read and parse previous scores from comments field (see PREREQS.txt for details)
+* Read and parse previous scores from comments field - parsing done (in stu); need to write method to read from Synergy.
 * **DONE** Code a score of -1 as exempt/not calculated (in NGOG)
 
 * Reports:
