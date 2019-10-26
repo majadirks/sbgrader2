@@ -362,23 +362,31 @@ def remove_everything_between_parens(string_to_clean):
         'hello (world' -> 'hello'
         'hello )world' -> 'hello world'
         'well )hello there( world' -> 'well hello there'
+    If there are nested parentheses, the first parenthesis encountered
+    is assumed to match with the last. For example,
+    (1(2(3(4)4)3)2)1' -> '1'
+    (ab(hi)c' -> 'c'
     '''
-    # TODO. Use slicing.
+    if '(' not in string_to_clean and ')' not in string_to_clean:
+        return string_to_clean
     # Cut out clean parentheses (matching)
-    # and '( with no ')'
+    # and also cut out opening '( with no closing ')'
     while '(' in string_to_clean:
         start_paren_index = string_to_clean.find('(')
         tail = string_to_clean[start_paren_index:]  # Parenthesis onward
         if ')' in tail:
-            end_paren_index = string_to_clean.find(')')
+            # Find the last ')' in the string
+            end_paren_index = len(string_to_clean) - 1 -\
+                string_to_clean[::-1].find(')')
         else:
             end_paren_index = len(string_to_clean) - 1
         string_to_clean = string_to_clean[:start_paren_index] + \
             string_to_clean[end_paren_index + 1:]
-    # Replace any remaining ')'s
+    # Replace any remaining ')'s that lack opening '('s
     string_to_clean = string_to_clean.replace(')', '')
     # Strip whitespace
     string_to_clean = string_to_clean.strip()
+    # print(f"Cleaned: '{string_to_clean}'")
     return string_to_clean
 
 
@@ -422,8 +430,14 @@ def parse_score_history_from_comment(comment):
     # Remove starting phrase and everything before it
     comment = comment[phrase_index + phrase_len:]
     # Remove everything between parentheses.
-    # TODO
-    pass
+    comment = remove_everything_between_parens(comment)
+    # Find first character that isn't valid and cut string there.
+    valid_chars = {'-', '1', '2', '3', '4', '5', '.', ' ', ','}
+    for index, char in enumerate(comment):
+        if char not in valid_chars:
+            comment = comment[:index]
+            break
+    
 
 
 # Unit tests
@@ -441,9 +455,14 @@ if __name__ == "__main__":
             'hello) world') == 'hello world'
     assert remove_everything_between_parens(
             'well )hello there( world') == 'well hello there'
-
+    assert remove_everything_between_parens(
+            '(1(2(3(4)4)3)2)1') == '1'
+    assert remove_everything_between_parens(
+            '(ab(hi)c') == 'c'
+    print("Success!")
+   
     # Test parse_score_history_from_comment
-    print("Testing parse_score_history_from_comment()")
+    print("Testing parse_score_history_from_comment():")
     assert parse_score_history_from_comment("no comment") == []
     assert parse_score_history_from_comment(
             "yadayadayada PREVIOUS SCORES: 1, 2.5, 3") == [1, 2.5, 3]
