@@ -138,6 +138,81 @@ def get_student_list(driver):
 
 def get_lt_score_matrix(driver, list_of_lts):
     '''
+        This function takes two arguments:
+        (i) a selenium WebDriver object pointed to a Synergy gradebook page
+        (ii) a list of LTs whose gb_column values correspond to their
+             position in the Synergy gradebook page
+    The WebDriver should be pointed at a Grade Book Main page
+    on the Synergy Education Platform.
+    The function returns a tuple of two elements:
+        (i) a list of lists, where each inner list contains
+            one student's scores on LTs in the list.
+            If the student does not have a score, it is stored as -1.
+        (ii) a list of lists, where each inner list contains
+            comments on one student's scores on LTs in the list
+    '''
+    score_matrix = [[]]
+    comment_matrix = [[]]
+    lt_count = 0
+    # Figure out which columns correspond to LT assignments
+    lt_column_indices = []
+    assignment_count = count_assignments(driver)
+    for index in range(assignment_count):
+        if bool(ltm.find_lt_by_column(index, list_of_lts)):
+            lt_column_indices.append(index)
+            lt_count += 1
+    # Find Synergy table with scores
+    table = driver.find_element_by_id('ctl00_cphbody_GV_Assignments')
+    # Find boxes containing scores (skip header and footer)
+    # Note that this includes both LTs and other stuff
+    all_score_boxes = table.find_elements_by_class_name('SAI')
+    '''
+    # Find boxes containg LT scores specifically
+    lt_score_boxes = []
+    for box_index, box in enumerate(all_score_boxes):
+        if box_index in lt_column_indices:
+            lt_score_boxes.append(box)
+    '''
+    # Build matrix of scores and comments
+    # Iterate through all score boxes and save the ones from LT columns
+    student_index = 0
+    for box_index, box in enumerate(all_score_boxes):
+        # box.click()
+        clicked_box = driver.switch_to.active_element
+        print(f"Box index = {box_index}, student index = {student_index}")
+        if box_index in lt_column_indices:
+            print("This is an LT column.")
+            # Move to next student if we've read
+            # all of the current student's scores
+            if (student_index + 1) % assignment_count == 0:
+                print(f"Incrementing student index to {student_index+1}")
+                student_index += 1
+                score_matrix.append([])
+                comment_matrix.append([])
+            # Read score from currently active box
+            score = clicked_box.text
+            score_matrix[student_index].append(score)
+            # Read comment from comment box
+            driver.switch_to.parent_frame
+            comment_box = driver.find_element_by_id('txt_NotesPublic')
+            comment = comment_box.text
+            comment_matrix.append(comment_box)
+            print(f"Read score '{score}' with comment '{comment}'")
+            # Switch back to box
+            clicked_box = driver.switch_to.active_element
+        # Press right arrow to move to next score
+        print("Moving right ->")
+        clicked_box.send_keys(Keys.RIGHT)
+    return (score_matrix, comment_matrix)
+
+    
+def DEPRECATED_get_lt_score_matrix(driver, list_of_lts):
+    '''
+    This function is deprecated.
+    TODO: write get_lt_score_matrix() that operates by reading boxes
+    left to right. Should return a list of lists for scores
+    and a list of lists for comments.
+
     This function takes two arguments:
         (i) a selenium WebDriver object pointed to a Synergy gradebook page
         (ii) a list of LTs whose gb_column values correspond to their
@@ -208,7 +283,12 @@ def create_classperiod_from_synergy(browser):
     class_name = get_classperiod_name(browser)
     list_of_lts = get_lt_list(browser)  # Get list of LTs
     student_list = get_student_list(browser)  # Get list of students
-    score_matrix = get_lt_score_matrix(browser, list_of_lts)  # Get scores
+    # Get scores and comments
+    score_matrix, comment_matrix = get_lt_score_matrix(browser, list_of_lts)
+    print("Scores:")
+    print(score_matrix)
+    print("Comments:")
+    print(comment_matrix)
 
     # Create ClassPeriod object from the above data
     cp = cpm.ClassPeriod(class_name, student_list, list_of_lts)
@@ -327,8 +407,10 @@ def fill_overall_scores(driver,
 if __name__ == "__main__":
     # Prompt user to navigate to gradebook, and then grab source
     browser = initialize_driver_with_user_input()
-    # cp = create_classperiod_from_synergy(browser)
-    # print(cp)
+    cp = create_classperiod_from_synergy(browser)
+    print(cp)
+    '''
     scores = list(range(20))  # Just for testing purposes, need a 20-elt list
     comments = ["comment"] * 20
     fill_overall_scores(browser, scores, comments, 'IGNORE')
+    '''
