@@ -478,8 +478,8 @@ if __name__ == "__main__":
     assert remove_everything_between_parens(
             '(ab(hi)c') == 'c'
     assert remove_everything_between_parens(
-            '1 (5/28), 2.5 (6/1 - getting there!!!), 3 Good job!') ==\
-            '1 , 2.5 , 3 Good job!'
+            '1 (5/28), 2.5 (6/1 - getting there!!!), 3 Good job :)!') ==\
+            '1 , 2.5 , 3 Good job :!'
     print("Success!")
    
     # Test parse_score_history_from_comment
@@ -491,7 +491,7 @@ if __name__ == "__main__":
             'previous scores: 1 2.5 3') == [1, 2.5, 3]
     assert parse_score_history_from_comment(
             "Previous scores: 1 (5/28), 2.5 (6/1 - getting there!!!), " +
-            "3 Good job!") == [1, 2.5, 3]
+            "3 Good job! :)") == [1, 2.5, 3]
     assert parse_score_history_from_comment(
             "Previous: 1 2.5 3") == [1, 2.5, 3]
     # Test with mismatched parentheses
