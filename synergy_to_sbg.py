@@ -204,6 +204,8 @@ def get_lt_score_matrix(driver, list_of_lts):
             student_index += 1
             score_matrix.append([])
             comment_matrix.append([])
+            # Click on first box of next row
+            all_score_boxes[box_index + 1].click()
     return (score_matrix, comment_matrix)
 
     
