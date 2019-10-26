@@ -199,7 +199,7 @@ def get_lt_score_matrix(driver, list_of_lts):
         clicked_box.send_keys(Keys.RIGHT)
         # Move to next student if we've read
         # all of the current student's scores
-        if box_index % assignment_count == 0:
+        if (box_index + 1) % assignment_count == 0:
             print(f"Incrementing student index to {student_index+1}")
             student_index += 1
             score_matrix.append([])
