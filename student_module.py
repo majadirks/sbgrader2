@@ -362,9 +362,10 @@ def remove_everything_between_parens(string_to_clean):
         'hello (world' -> 'hello'
         'hello )world' -> 'hello world'
         'well )hello there( world' -> 'well hello there'
-    If there are nested parentheses, the first parenthesis encountered
-    is assumed to match with the last. For example,
-    (1(2(3(4)4)3)2)1' -> '1'
+    This function deals stupidly with nested parentheses:
+    The first ')' encountered after an opening '(' is assumed to
+    close that paren. For example,
+    (1(2(3(4)4)3)2)1' -> '4321'
     (ab(hi)c' -> 'c'
     '''
     if '(' not in string_to_clean and ')' not in string_to_clean:
@@ -375,9 +376,8 @@ def remove_everything_between_parens(string_to_clean):
         start_paren_index = string_to_clean.find('(')
         tail = string_to_clean[start_paren_index:]  # Parenthesis onward
         if ')' in tail:
-            # Find the last ')' in the string
-            end_paren_index = len(string_to_clean) - 1 -\
-                string_to_clean[::-1].find(')')
+            # Find the next ')' in the string
+            end_paren_index = string_to_clean.find(')')
         else:
             end_paren_index = len(string_to_clean) - 1
         string_to_clean = string_to_clean[:start_paren_index] + \
@@ -432,13 +432,31 @@ def parse_score_history_from_comment(comment):
     # Remove everything between parentheses.
     comment = remove_everything_between_parens(comment)
     # Find first character that isn't valid and cut string there.
-    valid_chars = {'-', '1', '2', '3', '4', '5', '.', ' ', ','}
+    valid_chars = {'0', '1', '2', '3', '4', '5', '.', ' ', ','}
     for index, char in enumerate(comment):
         if char not in valid_chars:
             comment = comment[:index]
             break
-    
-
+    # At this point, we should have a series of scores separated by
+    # commas and spaces.
+    # Change all commas to spaces. Split on space to create scores list.
+    comment = comment.replace(',', ' ')
+    scores = comment.split(' ')
+    # Remove empty elements
+    while '' in scores:
+        scores.remove('')
+    # Convert remaining entries to floats
+    for index, score in enumerate(scores):
+        try:
+            scores[index] = float(score)
+        except ValueError:  # This should never happen
+            assert False, "Error: encountered invalid score {score}"
+        # Convert to int if possible
+        try:
+            scores[index] = int(score)
+        except ValueError:  # If it's not an int, never mind; just pass.
+            pass
+    return scores
 
 # Unit tests
 if __name__ == "__main__":
@@ -456,9 +474,12 @@ if __name__ == "__main__":
     assert remove_everything_between_parens(
             'well )hello there( world') == 'well hello there'
     assert remove_everything_between_parens(
-            '(1(2(3(4)4)3)2)1') == '1'
+            '(1(2(3(4)4)3)2)1') == '4321'
     assert remove_everything_between_parens(
             '(ab(hi)c') == 'c'
+    assert remove_everything_between_parens(
+            '1 (5/28), 2.5 (6/1 - getting there!!!), 3 Good job!') ==\
+            '1 , 2.5 , 3 Good job!'
     print("Success!")
    
     # Test parse_score_history_from_comment
@@ -470,7 +491,7 @@ if __name__ == "__main__":
             'previous scores: 1 2.5 3') == [1, 2.5, 3]
     assert parse_score_history_from_comment(
             "Previous scores: 1 (5/28), 2.5 (6/1 - getting there!!!), " +
-            "3 Good job :)") == [1, 2.5, 3]
+            "3 Good job!") == [1, 2.5, 3]
     assert parse_score_history_from_comment(
             "Previous: 1 2.5 3") == [1, 2.5, 3]
     # Test with mismatched parentheses
