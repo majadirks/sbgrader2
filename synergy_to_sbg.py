@@ -150,6 +150,10 @@ def get_lt_score_matrix(driver, list_of_lts):
             If the student does not have a score, it is stored as -1.
         (ii) a list of lists, where each inner list contains
             comments on one student's scores on LTs in the list
+    KNOWN ISSUES:
+        *LT columns not recognized when student_index > 0
+        *Scores not being read from boxes
+        *Some boxes not clickable(?)
     '''
     score_matrix = [[]]
     comment_matrix = [[]]
@@ -177,13 +181,14 @@ def get_lt_score_matrix(driver, list_of_lts):
     # Iterate through all score boxes and save the ones from LT columns
     all_score_boxes[0].click()
     student_index = 0
+    column_index = 0
     for box_index, box in enumerate(all_score_boxes):
         print(f"Box index = {box_index}, student index = {student_index}")
         # Switch to current box
         clicked_box = driver.switch_to.active_element 
         # If current box is in an LT column, read and store
         # score and comments
-        if box_index in lt_column_indices:
+        if column_index in lt_column_indices:
             print("This is an LT column.")
             # Read score from currently active box
             score = clicked_box.text
@@ -206,6 +211,10 @@ def get_lt_score_matrix(driver, list_of_lts):
             comment_matrix.append([])
             # Click on first box of next row
             all_score_boxes[box_index + 1].click()
+            # Set column index to -1; will increment shortly.
+            column_index = -1
+        # Increment column index
+        column_index += 1
     return (score_matrix, comment_matrix)
 
     
