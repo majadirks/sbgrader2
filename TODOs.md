@@ -13,6 +13,7 @@ sbgrader2 next steps:
   * Make reports nice via Markdown or TeX
   * Convert reports to PDF
   * Code to print all the reports
+  * Ability to customize boilerplate (so Aaron can use "complete response," for example)
 
 * login (with district id) for different preferences
   * prefs stored in user_prefs.txt
