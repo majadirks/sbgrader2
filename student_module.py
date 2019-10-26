@@ -379,7 +379,6 @@ def remove_everything_between_parens(string_to_clean):
     string_to_clean = string_to_clean.replace(')', '')
     # Strip whitespace
     string_to_clean = string_to_clean.strip()
-    print(f"Cleaned '{string_to_clean}'")
     return string_to_clean
 
 
