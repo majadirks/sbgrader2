@@ -370,13 +370,16 @@ def remove_everything_between_parens(string_to_clean):
         start_paren_index = string_to_clean.find('(')
         tail = string_to_clean[start_paren_index:]  # Parenthesis onward
         if ')' in tail:
-            end_paren_index = tail.find(')')
+            end_paren_index = string_to_clean.find(')')
         else:
             end_paren_index = len(string_to_clean) - 1
         string_to_clean = string_to_clean[:start_paren_index] + \
             string_to_clean[end_paren_index + 1:]
     # Replace any remaining ')'s
     string_to_clean = string_to_clean.replace(')', '')
+    # Strip whitespace
+    string_to_clean = string_to_clean.strip()
+    print(f"Cleaned '{string_to_clean}'")
     return string_to_clean
 
 
