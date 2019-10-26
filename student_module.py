@@ -496,6 +496,7 @@ if __name__ == "__main__":
             "Previous: 1 2.5 3") == [1, 2.5, 3]
     # Test with mismatched parentheses
     assert parse_score_history_from_comment("Previous: 1, (2, 3") == [1]
-
+    print("Success!")
     # Print final success message
     print("All tests passed successfully!")
+    
