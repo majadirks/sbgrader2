@@ -1,0 +1,35 @@
+Grade Report for Dilbert Adams	2019-10-26
+
+Overall grade: B (80%)
+
+Learning Target Scores:
+LT01: Solving Quadratic Equations.....................................  4
+LT02: Analyizing Quadratic Functions..................................  4
+LT03: Analyzing Quadratic Solutions...................................  3
+LT04: Quadratic Formula...............................................  4
+LT05: Quadratic Regression............................................  4
+LT06: Vertex Form.....................................................  3
+LT07: Quadratic Graphs................................................  4
+LT08: Functions, Relations, and Composite Functions...................  4
+LT09: Inverse Functions...............................................  2
+LT10: Graphs of Parent Functions......................................  2
+	Previous scores: [2]
+
+
+Advice for study plan:
+
+You currently have a B, which means that your work in this class exceeds expectations. Currently, out of the 10 learning targets in the grade book, you are meeting standard (earning 3s) on 2 and exceeding standard (4) on an additional 6. In order to raise your grade to an A, you need to meet standard on 90% (or 9) of the learning targets. You also need to make sure that at least half of the learning targets (at least {min_4_count_for_A} of the Learning Targets) are at the 4 level (exceeding standard).
+
+Your first priority should be to study the following learning targets on which you are not yet meeting standard:
+LT09: Inverse Functions
+LT10: Graphs of Parent Functions
+
+Your second priority should be to study learning targets on which you are meeting (but not yet exceeding) standard:
+LT03: Analyzing Quadratic Solutions
+LT06: Vertex Form
+
+
+Student Signature: ___________________________
+
+
+Parent Signature: ___________________________

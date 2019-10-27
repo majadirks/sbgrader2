@@ -1,0 +1,33 @@
+Grade Report for Gilgamesh Mesopo	2019-10-26
+
+Overall grade: D (67%)
+
+Learning Target Scores:
+LT01: Solving Quadratic Equations.....................................  4
+LT02: Analyizing Quadratic Functions..................................  4
+LT03: Analyzing Quadratic Solutions...................................  4
+LT04: Quadratic Formula...............................................  4
+LT05: Quadratic Regression............................................  4
+LT06: Vertex Form.....................................................  4
+LT07: Quadratic Graphs................................................  2
+	Previous scores: [2]
+LT08: Functions, Relations, and Composite Functions...................  2
+LT09: Inverse Functions...............................................  2
+LT10: Graphs of Parent Functions......................................  2
+
+
+Advice for study plan:
+
+You currently have a D, which means that your work in this course is not yet satisfactory. In order to raise your grade to a C, you need to meet or exceed standard on at least 65% of the learning targets (i.e. 7 of the learning targets) 
+
+You should focus on studying the following learning targets:
+LT07: Quadratic Graphs
+LT08: Functions, Relations, and Composite Functions
+LT09: Inverse Functions
+LT10: Graphs of Parent Functions
+
+
+Student Signature: ___________________________
+
+
+Parent Signature: ___________________________
