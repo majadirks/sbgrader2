@@ -1,0 +1,36 @@
+# User Preferences
+# Each user gets to set a few preferences:
+#
+# (1) FUNCTION:
+# The preference 'function' may be set to 'simple', 'piecewise', or 'sticky'.
+# 'Simple' means that all As are 95%, all Bs are 85%, all Cs are 75%,
+#                     all Ds are 65%, and all Fs are 50%.
+# 'Piecewise' means that the overall grade is calculated by the following
+# piecewise function, where x is the percentage of learning targets met:
+# f(x) = {x if x >= 0.8}, {(2x+0.8)/3 if x < 0.8}
+#   with the added constraints that if the student does not have
+#   at least 50% of LTs at 4s, the highest grade possible is .89,
+#   and if the student has any 0s or 1s, the highest grade possible
+#   is .79. 
+# The idea of the piecewise function is to communicate progress
+# within a letter grade.
+# 'Sticky' looks at the grade that a student would receive under the 
+# 'simple' or 'piecewise' functions and returns the lower of the two.
+# Thus students see progress from (for example) 70% up to 75%, but then
+# their grade sticks at 75% until they reach the B level.
+# The idea of 'sticky' is to make it difficult for students to move
+# up a letter grade based on other factors in the gradebook.
+# For example, if a student's grade is based 90% on learning targets
+# and 10% on a "mastery test" of skills from a previous course,
+# the sticky function would make it difficult for the student to move
+# from a B to an A based only on a high score on the mastery test. 
+#
+# (2) D_IS_VALID
+# This should be set to True if the user works at a school that
+# assigns Ds.
+# If it is set to False, the program assumes that the only valid grades
+# are A, B, C, and F.
+
+
+
+
