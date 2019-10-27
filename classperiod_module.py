@@ -17,25 +17,34 @@ from prettytable import PrettyTable
 from string import punctuation
 import os
 
+
 class ClassPeriod:
     '''
     This is a class to hold all data about a group of students and their
     scores on a set of LTs.
     '''
 
-    def __init__(self, description, students_in_period=[], course_lts=[]):
+    def __init__(self,
+                 description,
+                 students_in_period=[],
+                 course_lts=[],
+                 overall_function='piecewise'):
         '''
         Constructor method for a ClassPeriod.
         There is one mandatory argument, a string used to describe the
         class period (e.g. "Period_1"). The description should
         contain only characters that are valid in file names.
-        The function also takes two optional arguments:
+        The function also takes three optional arguments:
             students_in_period, a list of Student objects
             course_lts, a list of LearningTarget objects
+            overall_function, which specifies 'piecewise', 'simple'
+                or 'sticky' as the function of choice in determining
+                the overall grade
         '''
         self.description = description
         self.students_in_period = students_in_period
         self.course_lts = course_lts
+        self.overall_function = overall_function
         # If ClassPeriod was generated from some data source,
         # remove any exempts
         self.remove_exempts()
@@ -63,7 +72,7 @@ class ClassPeriod:
                                     round(100 *
                                           student.
                                           calculate_overall_grade(
-                                          'piecewise')
+                                                  self.overall_function)
                                           ))])
         return header + str(lt_table) + "\n" + str(student_table)
 
