@@ -13,6 +13,8 @@ Dependencies:
 # import modules
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import NoSuchElementException, \
+    ElementClickInterceptedException
 import student_module as stu
 import lt_module as ltm
 import classperiod_module as cpm
