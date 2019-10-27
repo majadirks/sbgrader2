@@ -16,12 +16,11 @@ from selenium.webdriver.common.keys import Keys
 import student_module as stu
 import lt_module as ltm
 import classperiod_module as cpm
-import string
 from nitty_gritty_of_grading import DEFAULT_X_CODE
 
 # Global variables (shudder)
 # Keyword to look for in assignment name of 'overall grade' column
-OVERALL_GRADE_KEYWORD = 'OVERALL'
+OVERALL_GRADE_KEYWORD = 'IGNORE'
 
 # Define functions
 
@@ -433,4 +432,4 @@ if __name__ == "__main__":
     print(cp)
     scores = cp.get_list_of_overall_grades()
     comments = [''] * len(get_student_list(browser))
-    fill_overall_scores(browser, scores, comments, 'IGNORE')
+    fill_overall_scores(browser, scores, comments, OVERALL_GRADE_KEYWORD)
