@@ -13,6 +13,7 @@ import lt_module as ltm
 import student_module as stu
 import sbg_data_methods as dm
 import datetime
+from prettytable import PrettyTable
 
 
 class ClassPeriod:
@@ -42,15 +43,18 @@ class ClassPeriod:
         '''
         This function returns a string representation of the class period.
         '''
-        lines = []
-        lines.append("Class Period: " + self.description + "\n")
-        lines.append("===Learning Target Descriptions===")
-        lines.append(ltm.rows_of_lt_briefs(self.course_lts))
-        lines.append("\n")
-        lines.append("=== Student Scores ===")
+        lt_table = PrettyTable()
+        lt_table.field_names = ['Learning Target', 'Description']
+        for lt in self.course_lts:
+            lt_table.add_row([lt.lt_label, lt.brief])
+        student_table = PrettyTable()
+        student_table.field_names = ['Last', 'First', 'Scores']
         for student in self.students_in_period:
-            lines.append(str(student))
-        return "\n".join(lines)
+            scores_str = ']\n'.join(str(student.scores)[1:-1].split('],'))
+            student_table.add_row([student.lastname,
+                                   student.firstname,
+                                   scores_str])
+        return str(lt_table) + "\n" + str(student_table)
 
     def find_student(self, search):
         '''
