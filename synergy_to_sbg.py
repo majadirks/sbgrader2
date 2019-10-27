@@ -151,13 +151,12 @@ def get_lt_score_matrix(driver, list_of_lts):
         (ii) a list of lists, where each inner list contains
             comments on one student's scores on LTs in the list
     KNOWN ISSUES:
-        *LT columns not recognized when student_index > 0
-        *Scores not being read from boxes
-        *Some boxes not clickable(?)
+        * TODO: Currently returns [[]] for comments matrix.
     '''
     score_matrix = [[]]
     comment_matrix = [[]]
     lt_count = 0
+    student_count = len(get_student_list(driver))
     # Figure out which columns correspond to LT assignments
     lt_column_indices = []
     assignment_count = count_assignments(driver)
@@ -170,47 +169,57 @@ def get_lt_score_matrix(driver, list_of_lts):
     # Find boxes containing scores (skip header and footer)
     # Note that this includes both LTs and other stuff
     all_score_boxes = table.find_elements_by_class_name('SAI')
-    '''
-    # Find boxes containg LT scores specifically
-    lt_score_boxes = []
-    for box_index, box in enumerate(all_score_boxes):
-        if box_index in lt_column_indices:
-            lt_score_boxes.append(box)
-    '''
     # Build matrix of scores and comments
     # Iterate through all score boxes and save the ones from LT columns
+    '''
     all_score_boxes[0].click()
+    '''
     student_index = 0
     column_index = 0
     for box_index, box in enumerate(all_score_boxes):
-        print(f"Box index = {box_index}, student index = {student_index}")
+        # print(f"Box index = {box_index}, student index = {student_index}")
+        '''
         # Switch to current box
-        clicked_box = driver.switch_to.active_element 
+        clicked_box = driver.switch_to.active_element
+        '''
         # If current box is in an LT column, read and store
         # score and comments
         if column_index in lt_column_indices:
-            print("This is an LT column.")
+            # print("This is an LT column.")
             # Read score from currently active box
-            score = clicked_box.text
+            score = box.text
+            # If score is a float, convert it to float.
+            # Otherwise, store it as 'exempt' code
+            # so that it doesn't figure into the grade
+            try:
+                score = float(score)
+            except ValueError:
+                score = DEFAULT_X_CODE
             score_matrix[student_index].append(score)
+            '''
             # Read comment from comment box
-            # driver.switch_to.parent_frame
             comment_box = driver.find_element_by_id('txt_NotesPublic')
             comment = comment_box.text
             comment_matrix.append(comment_box)
-            print(f"Read score '{score}' with comment '{comment}'")
+            '''
+            # print(f"Read score '{score}' with comment '{comment}'")
+        '''
         # Press right arrow to move to next score
         print("Moving right ->")
         clicked_box.send_keys(Keys.RIGHT)
+        '''
         # Move to next student if we've read
         # all of the current student's scores
         if (box_index + 1) % assignment_count == 0:
-            print(f"Incrementing student index to {student_index+1}")
+            # print(f"Incrementing student index to {student_index+1}")
             student_index += 1
-            score_matrix.append([])
-            comment_matrix.append([])
+            if student_index < student_count:
+                score_matrix.append([])
+                comment_matrix.append([])
+            '''
             # Click on first box of next row
             all_score_boxes[box_index + 1].click()
+            '''
             # Set column index to -1; will increment shortly.
             column_index = -1
         # Increment column index
@@ -266,6 +275,7 @@ def initialize_driver_with_user_input():
     This This function opens a browser window and instructs a user to navigate
     to a gradebook page on Synergy.
     It creates and returns the relevant WebDriver object.
+    On error, returns false
     '''
     # Prompt user to navigate to gradebook, and then grab source
     print("1: Wait for the browser to open.")
@@ -279,6 +289,11 @@ def initialize_driver_with_user_input():
     input("Press Enter to select current gradebook page>")
     # Focus on source for main frame in current browser window
     browser.switch_to.frame(browser.find_element_by_id('FRAME_CONTENT'))
+    try:
+        browser.find_element_by_id('ctl00_cphbody_GV_Assignments')
+    except NoSuchElementException:
+        print("Error: could not locate assignment grid.")
+        return False
     return browser
 
 
@@ -297,11 +312,12 @@ def create_classperiod_from_synergy(browser):
     student_list = get_student_list(browser)  # Get list of students
     # Get scores and comments
     score_matrix, comment_matrix = get_lt_score_matrix(browser, list_of_lts)
+    '''
     print("Scores:")
     print(score_matrix)
     print("Comments:")
     print(comment_matrix)
-
+    '''
     # Create ClassPeriod object from the above data
     cp = cpm.ClassPeriod(class_name, student_list, list_of_lts)
     # Add student scores to the ClassPeriod
