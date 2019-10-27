@@ -16,9 +16,10 @@ import student_module as stu
 import nitty_gritty_of_grading as ngog
 import sys
 import synergy_to_sbg as synergy
+from os import path
 
 # Constants
-DEFAULT_CP_DESCRIPTION = "sample_classperiod"
+DEFAULT_CP_DESCRIPTION = 'sample_classperiod'
 
 
 def load_sample_classperiod(description=DEFAULT_CP_DESCRIPTION):
@@ -30,7 +31,7 @@ def load_sample_classperiod(description=DEFAULT_CP_DESCRIPTION):
     with the given description
     The function returns the resulting ClassPeriod object.
     '''
-    filename = description + ".txt"
+    filename = path.join('.', description, description + ".txt")
     # Check if file exists.
     data_str = dm.fetch_data_from_file(filename)
     file_exists = bool(data_str)
@@ -208,7 +209,10 @@ def write_overall_grades_to_synergy(cp, driver):
                 pointed at a Synergy gradebook page.
     '''
     grades = cp.get_list_of_overall_grades()
-    return synergy.fill_overall_scores(driver, grades, 'OVERALL')
+    return synergy.fill_overall_scores(driver,
+                                       grades,
+                                       comments=[],
+                                       keyword='OVERALL')
 
 
 def save_and_exit(cp):
@@ -218,13 +222,9 @@ def save_and_exit(cp):
 
     This function is almost exactly equivalent to
     cpm.write_classperiod_to_datafile()
-    with two differences:
-        (i) there is no filename argument required or allowed
-        (ii) this function halts program execution after writing to the
-             file.
+    except that it also halts program execution after writing to the file.
     '''
-    filename = cp.description + ".txt"
-    cpm.write_classperiod_to_datafile(cp, filename)
+    cpm.write_classperiod_to_datafile(cp)
     sys.exit()
 
 
