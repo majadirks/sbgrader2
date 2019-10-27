@@ -34,6 +34,7 @@ sbgrader2 next steps:
     * (Currently causes ElementClickInterceptedException).
   * Options: import from Synergy, generate reports, save local copy, export to Synergy, etc.
   * Should not have to launch new browser for each data import!
+  * If user navigates away from page and then comes back, the program crashes. Fix that.
 
 * make repo public
 
