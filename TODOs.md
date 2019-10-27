@@ -29,7 +29,7 @@ sbgrader2 next steps:
   * **DONE** PrettyTable display
   * ~~nicer student strings~~ Not really necessary given ClassPeriod string overhaul
   * **DONE** include overall grade in display
-  * ClassPeriod datafiles each saved to their own subfolder
+  * **DONE** ClassPeriod datafiles each saved to their own subfolder
   * Options: import from Synergy, generate reports, save local copy, export to Synergy, etc.
 
 * make repo public
