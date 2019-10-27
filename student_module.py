@@ -80,9 +80,12 @@ class Student:
 
     def calculate_piecewise_grade(self):
         '''
+        Deprecated: use calculate_overall_grade('piecewise') instead.
         This method uses the ngog module to calculate the student's
         overall grade using the piecewise function.
         '''
+        print("Warning: calculate_piecewise_grade() is deprecated.")
+        print("Please use calculate_overall_grade('piecewise') instead.")
         return ngog.piecewise_grade(
                 ngog.list_of_most_recent_scores(self.scores))
 
