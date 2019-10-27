@@ -33,6 +33,7 @@ sbgrader2 next steps:
   * Allow users to fill Synergy data twice without saving in between.
     * (Currently causes ElementClickInterceptedException).
   * Options: import from Synergy, generate reports, save local copy, export to Synergy, etc.
+  * Should not have to launch new browser for each data import!
 
 * make repo public
 
