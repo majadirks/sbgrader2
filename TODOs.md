@@ -30,6 +30,8 @@ sbgrader2 next steps:
   * ~~nicer student strings~~ Not really necessary given ClassPeriod string overhaul
   * **DONE** include overall grade in display
   * **DONE** ClassPeriod datafiles each saved to their own subfolder
+  * Allow users to fill Synergy data twice without saving in between.
+    * (Currently causes ElementClickInterceptedException).
   * Options: import from Synergy, generate reports, save local copy, export to Synergy, etc.
 
 * make repo public
