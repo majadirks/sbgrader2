@@ -209,23 +209,23 @@ def simple_grade(list_of_scores):
     '''
     This function takes a list of student scores and returns
     the student's grade as one of the following five numbers:
-        50 (F), 65 (D), 75 (C), 85 (B), 95 (A)
+        .50 (F), .65 (D), .75 (C), .85 (B), .95 (A)
     This function is less useful than piecewise_grade, which should be
     used in most cases, but can be useful as a point of comparison
     for more complicated functions such as piecewise_grade.
     '''
     assert list_is_valid(list_of_scores, [0, 1, 1.5, 2, 2.5, 3, 3.5, 4])
     if has_A_from_LTs(list_of_scores):
-        return 95
+        return .95
     elif has_B_from_LTs(list_of_scores):
-        return 85
+        return .85
     elif has_C_from_LTs(list_of_scores):
-        return 75
+        return .75
     elif has_D_from_LTs(list_of_scores):
-        return 65
+        return .65
     else:
         assert has_F_from_LTs(list_of_scores)
-        return 50
+        return .50
 
 
 def letter_grade(list_of_scores):
@@ -234,15 +234,15 @@ def letter_grade(list_of_scores):
     the student's letter grade (char).
     '''
     simple_pct = simple_grade(list_of_scores)
-    if simple_pct == 95:
+    if simple_pct == .95:
         return 'A'
-    elif simple_pct == 85:
+    elif simple_pct == .85:
         return 'B'
-    elif simple_pct == 75:
+    elif simple_pct == .75:
         return 'C'
-    elif simple_pct == 65:
+    elif simple_pct == .65:
         return 'D'
-    elif simple_pct == 50:
+    elif simple_pct == .50:
         return 'F'
     else:  # Something bad happened
         return 'X'
@@ -279,6 +279,12 @@ def piecewise_grade(list_of_scores):
         grade = cpoltm
     return round(grade, 3)
 
+
+def sticky_grade(list_of_scores):
+    '''
+    This function returns the smaller of piecewise_grade and simple_grade.
+    '''
+    return min(simple_grade(list_of_scores), piecewise_grade(list_of_scores))
 
 # Unit tests
 if __name__ == "__main__":
@@ -421,16 +427,16 @@ if __name__ == "__main__":
     # Test simple_grade()
     print("Testing simple_grade():")
     simple_grades = list(map(simple_grade, most_recent_scores))
-    assert simple_grades == [95,  # Aerik
-                             85,  # Bob
-                             95,  # Catherine
-                             85,  # Dilbert
-                             75,  # Egbert
-                             75,  # Farina
-                             65,  # Gilgamesh
-                             50,  # Henry
-                             50,  # Ivan
-                             95]  # Janet
+    assert simple_grades == [.95,  # Aerik
+                             .85,  # Bob
+                             .95,  # Catherine
+                             .85,  # Dilbert
+                             .75,  # Egbert
+                             .75,  # Farina
+                             .65,  # Gilgamesh
+                             .50,  # Henry
+                             .50,  # Ivan
+                             .95]  # Janet
     print("Success!")
     # Test letter_grade()
     print("Testing letter_grade():")
@@ -442,4 +448,7 @@ if __name__ == "__main__":
     piecewise_grades = list(map(piecewise_grade, most_recent_scores))
     assert piecewise_grades == [1, .89, .9, .8, .79, .73, .67, .54, .5, 1]
     print("Success!\n\n")
+    print("Testing sticky_grade():")
+    sticky_grades = list(map(sticky_grade, most_recent_scores))
+    assert sticky_grades == [.95, .85, .9, .8, .75, .73, .65, .5, .5, .95]
     print("All tests were successful.")
