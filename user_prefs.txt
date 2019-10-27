@@ -30,7 +30,29 @@
 # assigns Ds.
 # If it is set to False, the program assumes that the only valid grades
 # are A, B, C, and F.
+#
+# Other Notes:
+# Feel free to delete all lines with other usernames.
+# If only one username is in the file, the program will
+# take that user as the default user.
+#
+# The preferences below are my (Dirks's) best guess at what you
+# are using. Obviously feel free to change if I guessed incorrectly,
+# and if you want more options, please let me know and I'll do my best
+# to implement them.
 
+# International School Teachers
+user=dirksm,function=piecewise,d_is_valid=False
+user=galvane,function=sticky,d_is_valid=False
+user=lordenr,function=piecewise,d_is_valid=False
+user=wallicks,function=sticky,d_is_valid=False
 
-
+# Newport HS Teachers
+user=adsita,function=simple,d_is_valid=True
+user=halvorsonl,function=piecewise,d_is_valid=True
+user=hauserk, function=piecewise,d_is_valid=True
+user=lorgeh,function=piecewise,d_is_valid=True
+user=neisesm,function=piecewise,d_is_valid=True
+user=rasmussenj,function=piecewise,d_is_valid=True
+user=strattonr,function=piecewise,d_is_valid=True
 
