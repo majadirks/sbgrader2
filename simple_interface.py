@@ -20,6 +20,7 @@ from os import path
 
 # Constants
 DEFAULT_CP_DESCRIPTION = 'sample_classperiod'
+DEFAULT_OVERALL_KEYWORD = 'ignore'
 
 
 def load_sample_classperiod(description=DEFAULT_CP_DESCRIPTION):
@@ -212,7 +213,7 @@ def write_overall_grades_to_synergy(cp, driver):
     return synergy.fill_overall_scores(driver,
                                        grades,
                                        comments=[],
-                                       keyword='OVERALL')
+                                       keyword=DEFAULT_OVERALL_KEYWORD)
 
 
 def save_and_exit(cp):
