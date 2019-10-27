@@ -265,7 +265,7 @@ def DEPRECATED_get_lt_score_matrix(driver, list_of_lts):
 
 def initialize_driver_with_user_input():
     '''
-    This This function opens a browser window and instructs a user to navigate
+    This function opens a browser window and instructs a user to navigate
     to a gradebook page on Synergy.
     It creates and returns the relevant WebDriver object.
     On error, returns false
@@ -420,7 +420,8 @@ def fill_overall_scores(driver,
         else:
             # Press Enter to move to the next score box
             clicked_box.send_keys(Keys.ENTER)
-    driver.switch_to.parent_frame
+    # Switch focus back to grades frame
+    driver.switch_to.default_content
     return True
 
 
