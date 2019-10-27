@@ -81,10 +81,24 @@ class Student:
     def calculate_piecewise_grade(self):
         '''
         This method uses the ngog module to calculate the student's
-        overall grade.
+        overall grade using the piecewise function.
         '''
         return ngog.piecewise_grade(
                 ngog.list_of_most_recent_scores(self.scores))
+
+    def calculate_overall_grade(self, function_string):
+        '''
+        This method takes a string that is set to
+        'simple', 'piecewise', or 'sticky',
+        and returns the student's overall grade per that function.
+        '''
+        function_dict = {'piecewise': ngog.piecewise_grade,
+                         'simple': ngog.simple_grade,
+                         'sticky': ngog.sticky_grade}
+        if function_string in function_dict:
+            return \
+                function_dict[function_string](ngog.list_of_most_recent_scores(
+                        self.scores))
 
     def letter_grade(self):
         '''

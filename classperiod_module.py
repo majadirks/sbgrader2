@@ -61,7 +61,9 @@ class ClassPeriod:
                                    scores_str,
                                    str(
                                     round(100 *
-                                          student.calculate_piecewise_grade()
+                                          student.
+                                          calculate_overall_grade(
+                                          'piecewise')
                                           ))])
         return header + str(lt_table) + "\n" + str(student_table)
 
