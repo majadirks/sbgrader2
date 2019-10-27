@@ -437,8 +437,6 @@ if __name__ == "__main__":
     browser = initialize_driver_with_user_input()
     cp = create_classperiod_from_synergy(browser)
     print(cp)
-    '''
-    scores = list(range(20))  # Just for testing purposes, need a 20-elt list
-    comments = ["comment"] * 20
+    scores = cp.get_list_of_overall_grades()
+    comments = [''] * len(get_student_list(browser))
     fill_overall_scores(browser, scores, comments, 'IGNORE')
-    '''
