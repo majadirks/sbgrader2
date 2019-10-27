@@ -48,12 +48,19 @@ class ClassPeriod:
         for lt in self.course_lts:
             lt_table.add_row([lt.lt_label, lt.brief])
         student_table = PrettyTable()
-        student_table.field_names = ['Last', 'First', 'Scores']
+        student_table.field_names = ['Last',
+                                     'First',
+                                     'Scores',
+                                     'Overall LT grade']
         for student in self.students_in_period:
             scores_str = ']\n'.join(str(student.scores)[1:-1].split('],'))
             student_table.add_row([student.lastname,
                                    student.firstname,
-                                   scores_str])
+                                   scores_str,
+                                   str(
+                                    round(100 *
+                                          student.calculate_piecewise_grade()
+                                          ))])
         return str(lt_table) + "\n" + str(student_table)
 
     def find_student(self, search):
