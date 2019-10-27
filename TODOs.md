@@ -34,5 +34,5 @@ sbgrader2 next steps:
 
 * make repo public
 
-* Write up an install guide
+* Write up an install guide (for .exe or from source)
 * package as exe file (use py2exe)

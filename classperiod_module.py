@@ -14,7 +14,8 @@ import student_module as stu
 import sbg_data_methods as dm
 import datetime
 from prettytable import PrettyTable
-
+from string import punctuation
+import os
 
 class ClassPeriod:
     '''
@@ -43,6 +44,7 @@ class ClassPeriod:
         '''
         This function returns a string representation of the class period.
         '''
+        header = "===" + self.description.upper() + "===\n\n"
         lt_table = PrettyTable()
         lt_table.field_names = ['Learning Target', 'Description']
         for lt in self.course_lts:
@@ -61,7 +63,7 @@ class ClassPeriod:
                                     round(100 *
                                           student.calculate_piecewise_grade()
                                           ))])
-        return str(lt_table) + "\n" + str(student_table)
+        return header + str(lt_table) + "\n" + str(student_table)
 
     def find_student(self, search):
         '''
@@ -164,19 +166,42 @@ def build_classperiod_from_datafile(filename):
     return build_classperiod_from_data(data_str)
 
 
-def write_classperiod_to_datafile(classperiod, filename):
+def replace_punctuation_with_underscores(string_to_clean):
+    '''
+    This function takes a string argument and returns
+    the same string but with all punctuation and spaces
+    replaced by underscores.
+    '''
+     # Strip and replace all punctuation and spaces with underscores
+    exclude = set(punctuation + ' ')
+    for ch in string_to_clean:
+        if ch in exclude:
+            string_to_clean = string_to_clean.replace(ch, '_')
+    return string_to_clean
+
+
+def write_classperiod_to_datafile(classperiod):
     '''
     This function creates/overwrites a data file to hold data on a
     class period.
-    It takes two arguments: a ClassPeriod object and a string
-    specifiying the destination file.
+    It takes a ClassPeriod object as its only argument.
+    The data is saved to a folder specified by the ClassPeriod
+    description.
+    For example, if the description is "Period 5",
+    the files are saved in the directory "./Period_5/"
     The function returns True on success, False on failure.
     '''
+    # String to identify class period
+    stem = replace_punctuation_with_underscores(classperiod.description)
+    # Create directory for ClassPeriod if it doesn't yet exist
+    if not os.path.exists(stem):
+        os.mkdir(stem)
+    path_stem = os.path.join('.', stem, stem)
     # Create a list of strings to be written.
     # First line: description
     datafile_lines = [classperiod.description]
     # Write learning targets to a file
-    lt_filename = classperiod.description + "_lts.ltdat"
+    lt_filename = path_stem + "_lts.ltdat"
     lt_write_success = dm.write_lts_in_list_to_datafile(
             classperiod.course_lts, lt_filename)
     if not(lt_write_success):
@@ -186,7 +211,7 @@ def write_classperiod_to_datafile(classperiod, filename):
     datafile_lines.append(lt_filename)
     # Write student data to files
     for student in classperiod.students_in_period:
-        student_filename = (classperiod.description + "_" +
+        student_filename = (path_stem + "_" +
                             str(student.sid) + ".studat")
         student_write_success = dm.write_student_data_to_file(
                 student, student_filename)
@@ -198,6 +223,7 @@ def write_classperiod_to_datafile(classperiod, filename):
     string_to_write = "\n".join(datafile_lines)
     # Attempt to open file in write mode; create if it doesn't exist yet
     try:
+        filename = path_stem + ".txt"
         with open(filename, "w+") as data_file:
             data_file.write(string_to_write)
             return True
@@ -222,8 +248,12 @@ def generate_reports(cp):
                              student.lastname,
                              student.firstname,
                              "grade_report.txt"])
+        file_path = os.path.join('.',
+                                 replace_punctuation_with_underscores(
+                                         cp.description),
+                                 filename)
         try:
-            with open(filename, "w+") as student_report_file:
+            with open(file_path, "w+") as student_report_file:
                 student_report_file.write(student.report(cp.course_lts))
         except IOError:
             print(f"Warning: could not write to file {filename}")
@@ -234,6 +264,9 @@ def generate_reports(cp):
 # Unit tests
 if __name__ == "__main__":
     import data_for_unit_testing as dfut
+    sample_cp_file_path = os.path.join('.',
+                                       'sample_classperiod',
+                                       'sample_classperiod.txt')
     # Create sample class period
     cp = ClassPeriod("Period X Grades",
                      dfut.sample_list_of_students(),
@@ -258,7 +291,12 @@ if __name__ == "__main__":
     print("Testing student_list_from_datafile_list():")
     datafile_list = []
     for index in range(1, 10):
-        datafile_list.append("sample_classperiod_" + str(index) + ".studat")
+        student_file_path = os.path.join('.',
+                                         'sample_classperiod',
+                                         'sample_classperiod_' +
+                                         str(index) +
+                                         '.studat')
+        datafile_list.append(student_file_path)
     student_list = student_list_from_datafile_list(datafile_list)
     # Make sure everything in the list is a Student
     for student in student_list:
@@ -269,19 +307,25 @@ if __name__ == "__main__":
     # Test build_classperiod_from_data()
     print("Testing build_classperiod_from_data()")
     cp = build_classperiod_from_data(
-            dm.fetch_data_from_file("sample_classperiod.txt"))
+            dm.fetch_data_from_file(sample_cp_file_path))
     assert type(cp) == ClassPeriod
     print(cp)  # Print for visual inspection
     input("(3/4) Inspect visually and press enter.")
     print("Success!\n\n")
     # Test build_classperiod_from_datafile()
     print("Testing build_classperiod_from_datafile():")
-    cp = build_classperiod_from_datafile("sample_classperiod.txt")
+    cp = build_classperiod_from_datafile(sample_cp_file_path)
     assert type(cp) == ClassPeriod
     print(cp)  # Print for visual inspection
     input("(4/4) Inspect visually and press enter.")
     # Test write_classperiod_to_datafile(classperiod, filename)
     print("Testing write_classperiod_to_datafile():")
+    '''
+    This test is deprecated. Currently, write_classperiod_to_datafile
+    determines the path to save to by the ClassPeriod description.
+    Therefore it cannot write the same ClassPeriod object to two distinct
+    files.
+ 
     # Don't overwrite "sample_classperiod.txt"
     # Instead, write cp to a new file.
     # Read that into a new ClassPeriod, cp2.
@@ -290,11 +334,14 @@ if __name__ == "__main__":
     # by comparing the __repr__() results from the two reads.
     new_filename = "unit_test_cp.txt"
     # write_classperiod_to_datafile() returns True on success
-    assert write_classperiod_to_datafile(cp, new_filename)
+    # assert write_classperiod_to_datafile(cp, new_filename)
+    assert write_classperiod_to_datafile(cp)
     cp2 = build_classperiod_from_datafile(new_filename)
-    write_classperiod_to_datafile(cp, new_filename)
+    # write_classperiod_to_datafile(cp, new_filename)
+    write_classperiod_to_datafile(cp)
     assert (cp2.__repr__() ==
             build_classperiod_from_datafile(new_filename).__repr__())
+    '''
     print("Success!\n\n")
     # Test generate_reports()
     print("Testing generate_reports()")
@@ -305,5 +352,8 @@ if __name__ == "__main__":
     print("All assertion test successful.")
     print("If the visuals and reports looked good, " +
           "this module should function as expected")
+    '''
+    # No longer relevant:
     print("You may want to delete the generated reports and the file " +
           "'unit_test_cp.txt'.")
+    '''

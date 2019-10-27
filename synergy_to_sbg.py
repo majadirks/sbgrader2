@@ -73,13 +73,7 @@ def get_classperiod_name(driver):
     current_focus_len = len(current_focus_str)
     sec_index = class_name.find(' SEC:')
     class_name = class_name[current_focus_len:sec_index].strip()
-    # Exclude evr
-    # Strip and replace all punctuation with underscores
-    exclude = set(string.punctuation + ' ')
-    for ch in class_name:
-        if ch in exclude:
-            class_name = class_name.replace(ch, '_')
-    return class_name
+    return cpm.replace_punctuation_with_underscores(class_name)
 
 
 def get_lt_list(driver):
