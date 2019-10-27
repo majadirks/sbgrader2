@@ -28,23 +28,26 @@ class ClassPeriod:
                  description,
                  students_in_period=[],
                  course_lts=[],
-                 overall_function='piecewise'):
+                 overall_function='piecewise',
+                 d_is_valid=True):
         '''
         Constructor method for a ClassPeriod.
         There is one mandatory argument, a string used to describe the
         class period (e.g. "Period_1"). The description should
         contain only characters that are valid in file names.
-        The function also takes three optional arguments:
+        The function also takes four optional arguments:
             students_in_period, a list of Student objects
             course_lts, a list of LearningTarget objects
             overall_function, which specifies 'piecewise', 'simple'
                 or 'sticky' as the function of choice in determining
                 the overall grade
+            d_is_valid: True if D is a valid letter grade, False if not.
         '''
         self.description = description
         self.students_in_period = students_in_period
         self.course_lts = course_lts
         self.overall_function = overall_function
+        self.d_is_valid = d_is_valid
         # If ClassPeriod was generated from some data source,
         # remove any exempts
         self.remove_exempts()
