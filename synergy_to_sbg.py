@@ -403,7 +403,10 @@ def fill_overall_scores(driver,
     table = driver.find_element_by_id('ctl00_cphbody_GV_Assignments')
     score_boxes = table.find_elements_by_class_name('SAI')
     # Click on the first-row box of the overall grade column
-    score_boxes[overall_grade_column].click()
+    try:
+        score_boxes[overall_grade_column].click()
+    except ElementClickInterceptedException:
+        print("Could not write scores. Try saving the page first.")
     # Write first score, press enter, and move down the list.
     for student_index in range(len(scores)):
         clicked_box = driver.switch_to.active_element
