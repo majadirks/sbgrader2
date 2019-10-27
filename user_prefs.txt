@@ -3,8 +3,10 @@
 #
 # (1) FUNCTION:
 # The preference 'function' may be set to 'simple', 'piecewise', or 'sticky'.
+#
 # 'Simple' means that all As are 95%, all Bs are 85%, all Cs are 75%,
 #                     all Ds are 65%, and all Fs are 50%.
+#
 # 'Piecewise' means that the overall grade is calculated by the following
 # piecewise function, where x is the percentage of learning targets met:
 # f(x) = {x if x >= 0.8}, {(2x+0.8)/3 if x < 0.8}
@@ -14,6 +16,7 @@
 #   is .79. 
 # The idea of the piecewise function is to communicate progress
 # within a letter grade.
+#
 # 'Sticky' looks at the grade that a student would receive under the 
 # 'simple' or 'piecewise' functions and returns the lower of the two.
 # Thus students see progress from (for example) 70% up to 75%, but then
