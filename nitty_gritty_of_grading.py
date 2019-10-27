@@ -228,7 +228,7 @@ def simple_grade(list_of_scores):
         return .50
 
 
-def letter_grade(list_of_scores):
+def letter_grade(list_of_scores, d_is_valid):
     '''
     This function takes a list of student scores and returns
     the student's letter grade (char).
@@ -241,7 +241,10 @@ def letter_grade(list_of_scores):
     elif simple_pct == .75:
         return 'C'
     elif simple_pct == .65:
-        return 'D'
+        if d_is_valid:
+            return 'D'
+        else:
+            return 'F'
     elif simple_pct == .50:
         return 'F'
     else:  # Something bad happened

@@ -129,7 +129,8 @@ class ClassPeriod:
         '''
         grades = []
         for student in self.students_in_period:
-            grades.append(round(student.calculate_piecewise_grade()*100))
+            grades.append(round(student.calculate_overall_grade(
+                    self.overall_function)*100))
         return grades
 
 
@@ -268,7 +269,9 @@ def generate_reports(cp):
                                  filename)
         try:
             with open(file_path, "w+") as student_report_file:
-                student_report_file.write(student.report(cp.course_lts))
+                student_report_file.write(student.report(cp.course_lts,
+                                                         cp.overall_function,
+                                                         cp.d_is_valid))
         except IOError:
             print(f"Warning: could not write to file {filename}")
             success = False
@@ -359,7 +362,8 @@ if __name__ == "__main__":
     print("Success!\n\n")
     # Test generate_reports()
     print("Testing generate_reports()")
-    assert generate_reports(cp)  # generate_reports returns True on success
+    # generate_reports returns True on success
+    assert generate_reports(cp)
     input("Reports should be generated. Inspect text files and press enter.")
     print("Success!\n\n")
     # Print success message.

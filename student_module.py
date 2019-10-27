@@ -92,7 +92,7 @@ class Student:
     def calculate_overall_grade(self, function_string):
         '''
         This method takes a string that is set to
-        'simple', 'piecewise', or 'sticky',
+        'simple', 'piecewise', 'sticky', or 'letter',
         and returns the student's overall grade per that function.
         '''
         function_dict = {'piecewise': ngog.piecewise_grade,
@@ -103,13 +103,13 @@ class Student:
                 function_dict[function_string](ngog.list_of_most_recent_scores(
                         self.scores))
 
-    def letter_grade(self):
+    def letter_grade(self, d_is_valid):
         '''
         This method uses the ngog module to calculate the student's
         letter grade.
         '''
-        return ngog.letter_grade(
-                ngog.list_of_most_recent_scores(self.scores))
+        return ngog.letter_grade(ngog.list_of_most_recent_scores(self.scores),
+                                 d_is_valid)
 
     def lts_assessed(self, list_of_all_LTs):
         '''
@@ -196,7 +196,7 @@ class Student:
             return ("Error: invalid grade calculation occurred; " +
                     "no advice given.")
 
-    def report(self, list_of_all_lts, d_is_valid):
+    def report(self, list_of_all_lts, overall_function, d_is_valid):
         '''
         This function takes two arguments:
             (i) a list of LearningTarget objects, containing at minimum
@@ -206,11 +206,12 @@ class Student:
         for a student.
         '''
         current_date_str = str(datetime.datetime.now()).split(' ')[0]
-        pseudo_pct = floor(self.calculate_piecewise_grade() * 100)
+        pseudo_pct = floor(self.calculate_overall_grade(overall_function)
+                           * 100)
         lines = [
                 f"Grade Report for {self.firstname} {self.lastname}" +
                 f"\t{current_date_str}",
-                f"\nOverall grade: {self.letter_grade()} " +
+                f"\nOverall grade: {self.letter_grade(d_is_valid)} " +
                 f"({pseudo_pct}%)\n",
                 "Learning Target Scores:"]
         for lt in self.lts_assessed(list_of_all_lts):

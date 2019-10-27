@@ -14,6 +14,7 @@ sbgrader2 next steps:
   * Convert reports to PDF
   * Code to print all the reports
   * Ability to customize boilerplate (so Aaron can use "complete response," for example)
+  * Advice content depends on whether D is a valid grade
 
 * login (with district id) for different preferences
   * prefs stored in user_prefs.txt
