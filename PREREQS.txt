@@ -2,11 +2,12 @@ Dependencies to run this:
 Python
 selenium (install from home)
 web driver for Firefox/Chrome/whatevs (in PATH)
-
+prettytable
 
 Gradebook format:
   (i) LT assignments in format 'LT1A Brief Description' (start with 'LT' and then a code of some sort, with no space in between, then a space, then a brief description)
   (ii) Assignment for overall grade that contains the word 'overall' and does not start with 'LT' (e.g. 'Overall LT Grade' is okay)
+    (Feature for putting score history in reports not currently available)
   (iii) Comments may contain previous scores in in the following formats:
               'Previous scores: 1, 2.5, 3'
               'Previous scores: 1 2.5 3'
