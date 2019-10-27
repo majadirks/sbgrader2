@@ -134,13 +134,12 @@ class Student:
             lts_assessed.append(search)
         return lts_assessed
 
-    def __best_advice(self, list_of_all_lts):
+    def __best_advice(self, list_of_all_lts, d_is_valid):
         '''
-        Obligatory private method for project requirements.
-
         This method returns a string containg study advice for the student.
-        It requires one argument: a list of all LearningTargets
-        in the gradebook.
+        It requires two arguments:
+            (i) a list of all LearningTargets in the gradebook.
+            (ii) a bool for whether D is a valid grade
         '''
         # Store misc. data needed to generate advice strings
         lts_assessed = self.lts_assessed(list_of_all_lts)
@@ -197,11 +196,12 @@ class Student:
             return ("Error: invalid grade calculation occurred; " +
                     "no advice given.")
 
-    def report(self, list_of_all_lts):
+    def report(self, list_of_all_lts, d_is_valid):
         '''
-        This function takes as an argument a list of LearningTarget
-        objects, containing at minimum the LTs on which the student
-        has been assessed.
+        This function takes two arguments:
+            (i) a list of LearningTarget objects, containing at minimum
+            the LTs on which the student has been assessed.
+            (ii) A bool for whether D is a valid grade
         This function returns a string representing a grade report
         for a student.
         '''
@@ -227,7 +227,7 @@ class Student:
                 lines.append("\tPrevious scores: " + str(old_scores))
         lines.append("\n")
         lines.append("Advice for study plan:\n")
-        lines.append(self.__best_advice(list_of_all_lts))
+        lines.append(self.__best_advice(list_of_all_lts, d_is_valid))
         lines.append("\n\nStudent Signature: ___________________________")
         lines.append("\n\nParent Signature: ___________________________")
         return "\n".join(lines)
