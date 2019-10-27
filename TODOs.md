@@ -33,7 +33,11 @@ sbgrader2 next steps:
   * **DONE** ClassPeriod datafiles each saved to their own subfolder
   * Allow users to fill Synergy data twice without saving in between.
     * (Currently causes ElementClickInterceptedException).
-  * Options: import from Synergy, generate reports, save local copy, export to Synergy, etc.
+  * Options: (1) Update overall grades on Synergy
+                      (= download grades, calculate overall, fill, and save)
+             (2) Generate grade reports ( = download grades, generate reports, close browser)
+             (3) Change preferences
+             (4) Exit
   * Should not have to launch new browser for each data import!
   * If user navigates away from page and then comes back, the program crashes. Fix that.
 
