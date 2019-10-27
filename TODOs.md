@@ -28,7 +28,7 @@ sbgrader2 next steps:
 * better interface
   * **DONE** PrettyTable display
   * ~~nicer student strings~~ Not really necessary given ClassPeriod string overhaul
-  * include overall grade in display
+  * **DONE** include overall grade in display
   * ClassPeriod datafiles each saved to their own subfolder
   * Options: import from Synergy, generate reports, save local copy, export to Synergy, etc.
 
