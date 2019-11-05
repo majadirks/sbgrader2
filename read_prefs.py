@@ -70,10 +70,10 @@ def get_pref_val(prefs_string, pref):
     prefs_string = prefs_string.upper()
     search = pref.upper() + '='
     head = prefs_string[(prefs_string.find(search) + len(search)):]
-    # Figure out index where pref ends
+    # Figure out index where pref ends: either next comma or end of string
     end = head.find(',')
     if end == -1:
-        end = head.find('\n')
+        end = len(head)
     tail = head[:end]
     return tail
 
