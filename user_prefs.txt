@@ -34,6 +34,11 @@
 # If it is set to False, the program assumes that the only valid grades
 # are A, B, C, and F.
 #
+# (3) TRAIN_MODE
+# This preference may be set to True or False.
+# If True, Synergy opens in training mode (so student grades are not actually affected).
+# If False, Synergy opens in regular mode.
+#
 # Other Notes:
 # Feel free to delete all lines with other usernames.
 # If only one username is in the file, the program will
@@ -45,17 +50,17 @@
 # to implement them.
 
 # International School Teachers
-user=dirksm,function=piecewise,d_is_valid=False
-user=galvane,function=sticky,d_is_valid=False
-user=lordenr,function=piecewise,d_is_valid=False
-user=wallicks,function=sticky,d_is_valid=False
+user=dirksm,function=piecewise,d_is_valid=False,train_mode=True
+user=galvane,function=sticky,d_is_valid=False, train_mode=True
+user=lordenr,function=piecewise,d_is_valid=False, train_mode=True
+user=wallicks,function=sticky,d_is_valid=False, train_mode=True
 
 # Newport HS Teachers
-user=adsita,function=simple,d_is_valid=True
-user=halvorsonl,function=piecewise,d_is_valid=True
-user=hauserk, function=piecewise,d_is_valid=True
-user=lorgeh,function=piecewise,d_is_valid=True
-user=neisesm,function=piecewise,d_is_valid=True
-user=rasmussenj,function=piecewise,d_is_valid=True
-user=strattonr,function=piecewise,d_is_valid=True
+user=adsita,function=simple,d_is_valid=True, train_mode=True
+user=halvorsonl,function=piecewise,d_is_valid=True, train_mode=True
+user=hauserk, function=piecewise,d_is_valid=True, train_mode=True
+user=lorgeh,function=piecewise,d_is_valid=True, train_mode=True
+user=neisesm,function=piecewise,d_is_valid=True, train_mode=True
+user=rasmussenj,function=piecewise,d_is_valid=True, train_mode=True
+user=strattonr,function=piecewise,d_is_valid=True, train_mode=True
 
