@@ -25,6 +25,8 @@ sbgrader2 next steps:
   * example line: dirksm,function=piecewise,assign_d=False
   * If user name not found, ask user if they want new log-in. Ask questions on preferences, and then add to user_prefs.txt
   * Use login to autofill Synergy username field
+  * toggle train mode (https://wa-bsd405.edupoint.com/train/Login.aspx)
+  * default values
 
 * better interface
   * **DONE** PrettyTable display
