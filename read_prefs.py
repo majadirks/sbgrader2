@@ -70,7 +70,11 @@ def get_pref_val(prefs_string, pref):
     prefs_string = prefs_string.upper()
     search = pref.upper() + '='
     head = prefs_string[(prefs_string.find(search) + len(search)):]
-    tail = head[:head.find(',')]
+    # Figure out index where pref ends
+    end = head.find(',')
+    if end == -1:
+        end = head.find('\n')
+    tail = head[:end]
     return tail
 
 
