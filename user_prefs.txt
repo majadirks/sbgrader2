@@ -63,4 +63,3 @@ user=lorgeh,function=piecewise,d_is_valid=True, train_mode=True
 user=neisesm,function=piecewise,d_is_valid=True, train_mode=True
 user=rasmussenj,function=piecewise,d_is_valid=True, train_mode=True
 user=strattonr,function=piecewise,d_is_valid=True, train_mode=True
-
