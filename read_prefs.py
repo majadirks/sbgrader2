@@ -110,6 +110,7 @@ def get_bool_from_prefs_str(prefs_str, pref):
     This function takes a preferences string and a pref (e.g. 'd_is_valid')
     that should be bool.
     It returns the bool value or gives an error.
+    If the preference is not found, the function returns -1.
     '''
     pref = pref.upper()
     prefs_str = prefs_str.upper()
@@ -118,6 +119,8 @@ def get_bool_from_prefs_str(prefs_str, pref):
         bool_val = True
     elif bool_str == 'FALSE':
         bool_val = False
+    elif bool_str == -1:  # If pref not found
+        bool_val = -1
     else:
         print(f"Error: invalid value for {pref} in")
         print(prefs_str)
@@ -156,12 +159,13 @@ def prefs_dict(username, list_of_user_prefs):
     # else default to piecewise
     function = get_pref_val(user_prefs_str, 'FUNCTION')
     if function == -1:
-        prefs_dict['FUNCTION'] = 'PIECEWISE'
-    else:
-        prefs_dict['FUNCTION'] = function
+        function = 'PIECEWISE'
+    prefs_dict['FUNCTION'] = function
     # Add d_is_valid to dict (value is Bool type)
-    prefs_dict['D_IS_VALID'] = get_bool_from_prefs_str(user_prefs_str,
-                                                       'D_IS_VALID')
+    d_is_valid =g et_bool_from_prefs_str(user_prefs_str, 'D_IS_VALID')
+    if d_is_valid == -1:  # pref not found
+        d_is_valid = True
+    prefs_dict['D_IS_VALID'] = d_is_valid
     # Add train_mode to dict
     prefs_dict['TRAIN_MODE'] = get_bool_from_prefs_str(user_prefs_str,
                                                        'TRAIN_MODE')
