@@ -195,7 +195,8 @@ def add_new_user_to_file(login_id="", filename=DEFAULT_FILENAME):
     prefs_str = ("USER=" + user +
                  ",FUNCTION=" + function +
                  ",D_IS_VALID=" + str(d_is_valid) +
-                 ",TRAIN_MODE=" + str(train_mode))
+                 ",TRAIN_MODE=" + str(train_mode) +
+                 "\n")
     with open(filename, "a") as file:
         file.write(prefs_str)
     
