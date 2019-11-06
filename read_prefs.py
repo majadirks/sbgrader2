@@ -152,7 +152,7 @@ def prefs_dict(username, list_of_user_prefs):
     return prefs_dict
 
   
-def add_new_user_to_file(login_id, filename=DEFAULT_FILENAME):
+def add_new_user_to_file(login_id="", filename=DEFAULT_FILENAME):
     '''
     This function takes a login id and a filename.
     It prompts the user to choose preferences,
@@ -162,8 +162,13 @@ def add_new_user_to_file(login_id, filename=DEFAULT_FILENAME):
     {'user': 'smithj', 'function': 'sticky',
      'd_is_valid': True, 'train_mode': False}
     '''
-    # Get user name
-    user = input("Please enter new username >")
+    # If no username passed as an argument, prompt for username.
+    # In either case, add to file.
+    if login_id == "":
+        user = input("Please enter new username >")
+    else:
+        user = login_id
+    prefs_dict = {"USER": user}
     # Get function
     print("Please specify overall grade function")
     valid_functions = ['SIMPLE', 'PIECEWISE', 'STICKY']
@@ -171,13 +176,31 @@ def add_new_user_to_file(login_id, filename=DEFAULT_FILENAME):
     while function not in valid_functions:
         print("Valid choices are: " + str(valid_functions))
         function = input(" >").upper().strip()
+    prefs_dict["FUNCTION"] = function
     # Is D valid?
     d_is_valid_str = 'invalid_choice'
     while d_is_valid_str not in ['Y', 'N']:
         d_is_valid_str = input("Is D a valid grade? (Y/N) >").strip().upper()
     d_is_valid = (d_is_valid_str == 'Y')
+    prefs_dict["D_IS_VALID"] = d_is_valid
     # Train mode?
-    # TODO
+    train_mode_str = 'invalid_choice'
+    while train_mode_str not in ['Y', 'N']:
+        train_mode_str = \
+            input("Use Synergy in training mode? (Y/N) > ").strip().upper()
+    train_mode = (train_mode_str == 'Y')
+    prefs_dict["TRAIN_MODE"] = train_mode
+    
+    # Having stored all the prefs, add user to file
+    prefs_str = ("USER=" + user +
+                 ",FUNCTION=" + function +
+                 ",D_IS_VALID=" + str(d_is_valid) +
+                 ",TRAIN_MODE=" + str(train_mode))
+    with open(filename, "a") as file:
+        file.write(prefs_str)
+    
+    # Finally, return the prefs dict
+    return prefs_dict
 
 
 def login_prompt(filename=DEFAULT_FILENAME):
@@ -234,3 +257,8 @@ if __name__=="__main__":
     print("Testing logn_prompt():")
     print(login_prompt())
     input("Pausing for visual inspection.")
+    
+    print("Testing add_new_user_to_file():")
+    new_dict = add_new_user_to_file("smithj", "test_prefs.txt")
+    print(new_dict)
+    input("Pausing for visual inspection. Look at file 'test_prefs.txt'")
