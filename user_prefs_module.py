@@ -17,32 +17,6 @@ DEFAULT_FILENAME = "user_prefs.txt"
 # Else prompt to create new user.
 # Return a dictionary of username and prefs
 
-"""
-def get_lines(filename="user_prefs.txt"):
-    '''
-    DEPRECATED: This function isn't needed.
-    Read in a data file and get a list of lines.
-    Ignore any lines that start with '#'
-    Return that list.
-    '''
-    lines = []
-    with open(filename, "r") as datafile:
-        next_line = datafile.readline()
-        while next_line:
-            to_append = next_line.strip()
-            # Ignore any comment lines or blank lines
-            # The order for the 'or' is important:
-            # first check for blank line, or else to_append[0] could
-            # cause an error.
-            if to_append == '' or to_append[0] == '#':
-                next_line = datafile.readline()
-                continue
-            lines.append(to_append)
-            next_line = datafile.readline()
-    return lines
-"""
-
-
 def get_prefs_of_all_users(filename=DEFAULT_FILENAME):
     '''
     Read in a data file and get a list of user pref strings.
