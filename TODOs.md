@@ -26,7 +26,7 @@ sbgrader2 next steps:
   * **DONE** If user name not found, ask user if they want new log-in. Ask questions on preferences, and then add to user_prefs.txt
   * Use login to autofill Synergy username field
   * toggle train mode (https://wa-bsd405.edupoint.com/train/Login.aspx)
-  * ~~default values~~
+  * default values (necessary in case I extend preferences later)
 
 * better interface
   * **DONE** PrettyTable display
