@@ -36,12 +36,11 @@ sbgrader2 next steps:
   * Allow users to fill Synergy data twice without saving in between.
     * (Currently causes ElementClickInterceptedException).
   * Options:
-             (1) Lanuch browser (TRAIN MODE or LIVE MODE)
-             (2) Update overall grades on Synergy
-                      (= download grades, calculate overall, fill)
-             (3) Generate grade reports ( = download grades, generate reports)
-             (4) Change preferences
-             (5) Exit
+   1. Launch browser (TRAIN MODE or LIVE MODE)
+   2. Update overall grades on Synergy (= download grades, calculate overall, fill)
+   3. Generate grade reports ( = download grades, generate reports)
+   4. Change preferences
+   5. Exit
   * Should not have to launch new browser for each data import!
   * If user navigates away from page and then comes back, the program crashes. Fix that.
   * Big disclaimer that this script could break at any point if Synergy/Gradebook changes
