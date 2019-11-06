@@ -44,6 +44,7 @@ sbgrader2 next steps:
              (5) Exit
   * Should not have to launch new browser for each data import!
   * If user navigates away from page and then comes back, the program crashes. Fix that.
+  * Big disclaimer that this script could break at any point if Synergy/Gradebook changes
 
 * make repo public
 
