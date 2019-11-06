@@ -45,7 +45,7 @@ sbgrader2 next steps:
   * If user navigates away from page and then comes back, the program crashes. Fix that.
   * Big disclaimer that this script could break at any point if Synergy/Gradebook changes
 
-* make repo public
+* make repo public (sans bsd-specific stuff)
 
 * Write up an install guide (for .exe or from source)
 * package as exe file (use py2exe)
