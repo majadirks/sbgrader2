@@ -150,12 +150,8 @@ def prefs_dict(username, list_of_user_prefs):
     prefs_dict['TRAIN_MODE'] = get_bool_from_prefs_str(user_prefs_str,
                                                        'TRAIN_MODE')
     return prefs_dict
-   
-    
-    
-    # TODO
 
-    
+  
 def add_new_user_to_file(login_id, filename=DEFAULT_FILENAME):
     '''
     This function takes a login id and a filename.
@@ -166,6 +162,21 @@ def add_new_user_to_file(login_id, filename=DEFAULT_FILENAME):
     {'user': 'smithj', 'function': 'sticky',
      'd_is_valid': True, 'train_mode': False}
     '''
+    # Get user name
+    user = input("Please enter new username >")
+    # Get function
+    print("Please specify overall grade function")
+    valid_functions = ['SIMPLE', 'PIECEWISE', 'STICKY']
+    function = 'invalid_choice'
+    while function not in valid_functions:
+        print("Valid choices are: " + str(valid_functions))
+        function = input(" >").upper().strip()
+    # Is D valid?
+    d_is_valid_str = 'invalid_choice'
+    while d_is_valid_str not in ['Y', 'N']:
+        d_is_valid_str = input("Is D a valid grade? (Y/N) >").strip().upper()
+    d_is_valid = (d_is_valid_str == 'Y')
+    # Train mode?
     # TODO
 
 
@@ -174,21 +185,19 @@ def login_prompt(filename=DEFAULT_FILENAME):
     This takes one argument, a filename for a file of user preferences.
 
     If more than one user is found in the data file,
-    prompt user to enter district id. Ignore anything after @ sign.
+    prompt user to enter district id.
     If that ID is found in the data file, return that user's prefs.
     Otherwise, prompt to create new user (or prompt to re-enter).
     
-    This function returns a tuple of preferences:
-        (function, d_is_valid, train_mode)
-    The default values (if not specified in file) are:
-        function = 'piecewise'
-        d_is_valid = True
-        train_mode = True
+    This function returns a dict of preferences:
+        e.g. :
+    {'user': 'smithj', 'function': 'sticky',
+     'd_is_valid': True, 'train_mode': False}
     '''
     user_prefs = get_prefs_of_all_users(filename)
     user_list = get_list_of_users(user_prefs)
     login_id = input("Please enter district username " +
-                  "(e.g. smithj) >").strip().upper()
+                     "(e.g. smithj) >").strip().upper()
     if login_id in user_list:
         return prefs_dict(login_id, user_prefs)
     else:
@@ -204,9 +213,6 @@ def login_prompt(filename=DEFAULT_FILENAME):
         # and return preference dict
         elif choice == 'Y':
             return add_new_user_to_file(login_id, filename)
-        
-        return prefs_dict(new_user(login_id))
-    
     
 
 # Unit tests
@@ -227,3 +233,4 @@ if __name__=="__main__":
 
     print("Testing logn_prompt():")
     print(login_prompt())
+    input("Pausing for visual inspection.")
