@@ -158,17 +158,19 @@ def prefs_dict(username, list_of_user_prefs):
     # Add function to dict (value is String type) if found;
     # else default to piecewise
     function = get_pref_val(user_prefs_str, 'FUNCTION')
-    if function == -1:
+    if function == -1:  # pref not found; default to 'PIECEWISE'
         function = 'PIECEWISE'
     prefs_dict['FUNCTION'] = function
     # Add d_is_valid to dict (value is Bool type)
     d_is_valid =g et_bool_from_prefs_str(user_prefs_str, 'D_IS_VALID')
-    if d_is_valid == -1:  # pref not found
+    if d_is_valid == -1:  # pref not found; default to True
         d_is_valid = True
     prefs_dict['D_IS_VALID'] = d_is_valid
     # Add train_mode to dict
-    prefs_dict['TRAIN_MODE'] = get_bool_from_prefs_str(user_prefs_str,
-                                                       'TRAIN_MODE')
+    train_mode = get_bool_from_prefs_str(user_prefs_str, 'TRAIN_MODE')
+    if train_mode == -1:  # pref not found; default to True
+        train_mode = True
+    prefs_dict['TRAIN_MODE'] = train_mode
     return prefs_dict
 
 
