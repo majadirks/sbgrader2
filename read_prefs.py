@@ -151,7 +151,7 @@ def prefs_dict(username, list_of_user_prefs):
                                                        'TRAIN_MODE')
     return prefs_dict
 
-  
+
 def add_new_user_to_file(login_id="", filename=DEFAULT_FILENAME):
     '''
     This function takes a login id and a filename.
@@ -190,7 +190,7 @@ def add_new_user_to_file(login_id="", filename=DEFAULT_FILENAME):
             input("Use Synergy in training mode? (Y/N) > ").strip().upper()
     train_mode = (train_mode_str == 'Y')
     prefs_dict["TRAIN_MODE"] = train_mode
-    
+
     # Having stored all the prefs, add user to file
     prefs_str = ("USER=" + user +
                  ",FUNCTION=" + function +
@@ -199,7 +199,7 @@ def add_new_user_to_file(login_id="", filename=DEFAULT_FILENAME):
                  "\n")
     with open(filename, "a") as file:
         file.write(prefs_str)
-    
+
     # Finally, return the prefs dict
     return prefs_dict
 
@@ -212,7 +212,7 @@ def login_prompt(filename=DEFAULT_FILENAME):
     prompt user to enter district id.
     If that ID is found in the data file, return that user's prefs.
     Otherwise, prompt to create new user (or prompt to re-enter).
-    
+
     This function returns a dict of preferences:
         e.g. :
     {'user': 'smithj', 'function': 'sticky',
@@ -237,20 +237,19 @@ def login_prompt(filename=DEFAULT_FILENAME):
         # and return preference dict
         elif choice == 'Y':
             return add_new_user_to_file(login_id, filename)
-    
+
 
 # Unit tests
-if __name__=="__main__":
+if __name__ == "__main__":
     print("Testing get_prefs_of_all_users():")
     user_prefs = get_prefs_of_all_users()
     print(user_prefs)
     input("Pausing for visual inspection.")
 
-    
     print("Testing get_username():")
     assert get_username('user=bob, function=sticky') == 'BOB'
     print("Success.")
-    
+
     print("Testing get_list_of_users():")
     print(get_list_of_users(user_prefs))
     input("Pausing for visual inspection.")
@@ -258,7 +257,7 @@ if __name__=="__main__":
     print("Testing logn_prompt():")
     print(login_prompt())
     input("Pausing for visual inspection.")
-    
+
     print("Testing add_new_user_to_file():")
     new_dict = add_new_user_to_file("smithj", "test_prefs.txt")
     print(new_dict)
