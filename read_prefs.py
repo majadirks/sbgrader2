@@ -66,9 +66,15 @@ def get_pref_val(prefs_string, pref):
            'user=smithj,function=piecewise,d_is_valid=False,train_mode=True'
         and the label of a pref (e.g. 'function').
         It returns the value of that pref (e.g. 'piecewise')
+        If the preference is not found, the function returns -1
     '''
     prefs_string = prefs_string.upper()
     search = pref.upper() + '='
+    # If pref not found, return -1
+    if prefs_string.find(search) == -1:
+        return -1
+    # Else, find pref value
+
     head = prefs_string[(prefs_string.find(search) + len(search)):]
     # Figure out index where pref ends: either next comma or end of string
     end = head.find(',')
@@ -126,6 +132,11 @@ def prefs_dict(username, list_of_user_prefs):
     the username, e.g.
     {'user': 'smithj', 'function': 'sticky',
      'd_is_valid': True, 'train_mode': False}
+    Default values if none specified:
+        function = piecewise
+        d_is_valid = True
+        train_mode = True
+    # TODO defaults
     '''
     # Make sure user name is in the given list
     username = username.upper()
@@ -141,8 +152,13 @@ def prefs_dict(username, list_of_user_prefs):
 
     # Add user name to dict
     prefs_dict['USER'] = username
-    # Add function to dict (value is String type)
-    prefs_dict['FUNCTION'] = get_pref_val(user_prefs_str, 'FUNCTION')
+    # Add function to dict (value is String type) if found;
+    # else default to piecewise
+    function = get_pref_val(user_prefs_str, 'FUNCTION')
+    if function == -1:
+        prefs_dict['FUNCTION'] = 'PIECEWISE'
+    else:
+        prefs_dict['FUNCTION'] = function
     # Add d_is_valid to dict (value is Bool type)
     prefs_dict['D_IS_VALID'] = get_bool_from_prefs_str(user_prefs_str,
                                                        'D_IS_VALID')
