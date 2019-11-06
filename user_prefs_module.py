@@ -150,6 +150,23 @@ def prefs_dict(username, list_of_user_prefs):
     return prefs_dict
 
 
+def prefs_dict_to_prefs_str(prefs_dict):
+    '''
+    This function takes a prefs dict
+    and converts it to a prefs string, which it returns.
+    '''
+    user = prefs_dict['USER']
+    function = prefs_dict['FUNCTION']
+    d_is_valid = prefs_dict['D_IS_VALID']
+    train_mode = prefs_dict['TRAIN_MODE']
+    prefs_str = ("USER=" + user +
+                 ",FUNCTION=" + function +
+                 ",D_IS_VALID=" + str(d_is_valid) +
+                 ",TRAIN_MODE=" + str(train_mode) +
+                 "\n")
+    return prefs_str
+
+
 def add_new_user_to_file(login_id="", filename=DEFAULT_FILENAME):
     '''
     This function takes a login id and a filename.
@@ -190,11 +207,7 @@ def add_new_user_to_file(login_id="", filename=DEFAULT_FILENAME):
     prefs_dict["TRAIN_MODE"] = train_mode
 
     # Having stored all the prefs, add user to file
-    prefs_str = ("USER=" + user +
-                 ",FUNCTION=" + function +
-                 ",D_IS_VALID=" + str(d_is_valid) +
-                 ",TRAIN_MODE=" + str(train_mode) +
-                 "\n")
+    prefs_str = prefs_dict_to_prefs_str(prefs_dict)
     with open(filename, "a") as file:
         file.write(prefs_str)
 
@@ -237,8 +250,51 @@ def login_prompt(filename=DEFAULT_FILENAME):
             return add_new_user_to_file(login_id, filename)
 
 
+def update_prefs(prefs_dict, filename=DEFAULT_FILENAME):
+    '''
+    This function takes two arguments:
+        (i) a dictionary of user prefs, e.g.:
+            {'user': 'smithj', 'function': 'sticky',
+             'd_is_valid': True, 'train_mode': False})
+        (ii) a filename (optional).
+    It looks for the user in the specified file.
+    If present, it deletes that user.
+    Then it appends the user with updated prefs to the end of the file.
+    '''
+    search = prefs_dict['USER'] + "="
+    try:
+        with open(filename, "r") as file:
+            # Copy the file into memory
+            lines = file.readlines()
+            # Remove user if present
+            for line in lines:
+                user_index = line.find(search)
+                comment_index = line.find('#')
+            # Check if user occurs in line, not after comment
+                if user_index != -1:
+                    # Remove the line if user is mentioned
+                    # and line is not commented out
+                    if comment_index == -1:
+                        lines.remove(line)
+                        # Remove the line if user is mentioned
+                        # before a comment starts
+                    elif user_index < comment_index:
+                        lines.remove(line)
+    # If file doesn't exist, don't worry about reading it.
+    except FileNotFoundError:
+        pass
+    # At this point, the user should be removed if relevant.
+    # Append new prefs to end
+    prefs_str = prefs_dict_to_prefs_str(prefs_dict)
+    with open(filename, "a+") as file:
+        file.write(prefs_str)
+        return True
+    return False  # This should never run
+
+
 # Unit tests
 if __name__ == "__main__":
+    '''
     print("Testing get_prefs_of_all_users():")
     user_prefs = get_prefs_of_all_users()
     print(user_prefs)
@@ -255,12 +311,11 @@ if __name__ == "__main__":
     print("Testing logn_prompt():")
     print(login_prompt())
     input("Pausing for visual inspection.")
-
     print("Testing add_new_user_to_file():")
     new_dict = add_new_user_to_file("smithj", "test_prefs.txt")
     print(new_dict)
     input("Pausing for visual inspection. Look at file 'test_prefs.txt'")
-
+    '''
     print("\n\nTesting def prefs_dict(username, list_of_user_prefs)")
     new_dict = prefs_dict('smithj',
                           ['user=smithj,' +
@@ -275,4 +330,17 @@ if __name__ == "__main__":
     assert new_dict['FUNCTION'] == 'PIECEWISE'
     assert new_dict['D_IS_VALID'] is True
     assert new_dict['TRAIN_MODE'] is True
+    print("Success!\n\n")
+    # Test prefs update
+    print("Testing update_prefs()")
+    new_smithj_dict = {'USER': 'SMITHJ',
+                       'FUNCTION': 'PIECEWISE',
+                       'D_IS_VALID': False,
+                       'TRAIN_MODE': True}
+    assert update_prefs(new_smithj_dict, "test_prefs.txt")
+    user_prefs = get_prefs_of_all_users('test_prefs.txt')
+    smithj_prefs_from_file = prefs_dict('smithj', user_prefs)
+    print("new_smithj_dict: " + str(new_smithj_dict))
+    print("smithj_prefs_from_file: " + str(smithj_prefs_from_file))
+    assert new_smithj_dict == smithj_prefs_from_file
     print("Success!\n\n")
