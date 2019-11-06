@@ -114,13 +114,15 @@ def get_bool_from_prefs_str(prefs_str, pref):
     '''
     pref = pref.upper()
     prefs_str = prefs_str.upper()
-    bool_str = get_pref_val(prefs_str, pref).strip()
+    bool_str = get_pref_val(prefs_str, pref)
+    if bool_str == -1:
+        return -1
+    else:
+        bool_str = bool_str.upper().strip()
     if bool_str == 'TRUE':
         bool_val = True
     elif bool_str == 'FALSE':
         bool_val = False
-    elif bool_str == -1:  # If pref not found
-        bool_val = -1
     else:
         print(f"Error: invalid value for {pref} in")
         print(prefs_str)
@@ -162,7 +164,7 @@ def prefs_dict(username, list_of_user_prefs):
         function = 'PIECEWISE'
     prefs_dict['FUNCTION'] = function
     # Add d_is_valid to dict (value is Bool type)
-    d_is_valid =g et_bool_from_prefs_str(user_prefs_str, 'D_IS_VALID')
+    d_is_valid = get_bool_from_prefs_str(user_prefs_str, 'D_IS_VALID')
     if d_is_valid == -1:  # pref not found; default to True
         d_is_valid = True
     prefs_dict['D_IS_VALID'] = d_is_valid
@@ -284,3 +286,15 @@ if __name__ == "__main__":
     new_dict = add_new_user_to_file("smithj", "test_prefs.txt")
     print(new_dict)
     input("Pausing for visual inspection. Look at file 'test_prefs.txt'")
+
+    print("Testing def prefs_dict(username, list_of_user_prefs)")
+    new_dict = prefs_dict('smithj',
+                   ['user=smithj,' +
+                    'function=sticky,d_is_valid=True,test_mode=False'])
+    print(new_dict)
+    assert new_dict['USER'] == 'SMITHJ'
+    assert new_dict['FUNCTION'] == 'STICKY'
+    assert new_dict['D_IS_VALID'] == True
+    assert new_dict['TEST_MODE'] == false
+    new_dict = prefs_dict('jonesb', ['user=jonesb,function=sticky'])
+    # TODO: test for invalid prefs
