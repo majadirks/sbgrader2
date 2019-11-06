@@ -272,7 +272,7 @@ if __name__ == "__main__":
 
     print("Testing get_username():")
     assert get_username('user=bob, function=sticky') == 'BOB'
-    print("Success.")
+    print("Success!\n\n")
 
     print("Testing get_list_of_users():")
     print(get_list_of_users(user_prefs))
@@ -287,14 +287,18 @@ if __name__ == "__main__":
     print(new_dict)
     input("Pausing for visual inspection. Look at file 'test_prefs.txt'")
 
-    print("Testing def prefs_dict(username, list_of_user_prefs)")
+    print("\n\nTesting def prefs_dict(username, list_of_user_prefs)")
     new_dict = prefs_dict('smithj',
-                   ['user=smithj,' +
-                    'function=sticky,d_is_valid=True,test_mode=False'])
+                          ['user=smithj,' +
+                           'function=sticky,d_is_valid=True,train_mode=False'])
     print(new_dict)
     assert new_dict['USER'] == 'SMITHJ'
     assert new_dict['FUNCTION'] == 'STICKY'
-    assert new_dict['D_IS_VALID'] == True
-    assert new_dict['TEST_MODE'] == false
-    new_dict = prefs_dict('jonesb', ['user=jonesb,function=sticky'])
-    # TODO: test for invalid prefs
+    assert new_dict['D_IS_VALID'] is True
+    assert new_dict['TRAIN_MODE'] is False
+    new_dict = prefs_dict('jonesb', ['user=jonesb'])
+    # Test default values
+    assert new_dict['FUNCTION'] == 'PIECEWISE'
+    assert new_dict['D_IS_VALID'] is True
+    assert new_dict['TRAIN_MODE'] is True
+    print("Success!\n\n")
