@@ -144,6 +144,21 @@ def main_menu(cp, train_mode=True):
     exit_choice = 5
     choice = -1
     while choice != exit_choice:
+
+
+        # Is browser still open?
+        try:
+            # Try to do something with the browser.
+            # If it works, the browser must be open!
+            # If it fails, the browser isn't open.
+            # Ironclad logic.
+            browser.window_handles
+            browser_launched = True
+        except:
+            browser_launched = False
+
+
+
         print("\n=== SBGRADER ===")
         print(cp)
         print("\n")
@@ -165,7 +180,20 @@ def main_menu(cp, train_mode=True):
                     break
             except ValueError:
                 print("Invalid selection")
-        # Call the function corresponding to the user's coice
+        # Call the function corresponding to the user's choice
+        if choice == 1:
+            if train_mode:
+                synergy_url = synergy.SYNERGY_TRAIN_MODE_URL
+            else:
+                synergy_url = synergy.SYNERGY_URL
+            browser = synergy.initialize_driver_with_user_input(synergy_url)
+            # If user cancelled browser by entering 0,
+            # the following conditional does not run.
+            if bool(browser):
+                cp = synergy.create_classperiod_from_synergy(browser)
+                browser_launched = True
+
+        """
         if choice == 1:
             cp = add_student_interface(cp)
         elif choice == 2:
@@ -174,9 +202,9 @@ def main_menu(cp, train_mode=True):
             cp = update_score_interface(cp)
         elif choice == 4:
             generate_reports_interface(cp)  # No return value
-       # elif choice == 5:
-       #     browser = synergy.initialize_driver_with_user_input()
-       #     cp = synergy.create_classperiod_from_synergy(browser)
+        elif choice == 5:
+            browser = synergy.initialize_driver_with_user_input()
+            cp = synergy.create_classperiod_from_synergy(browser)
         elif choice == 6:
             if bool(browser):
                 write_overall_grades_to_synergy(cp, browser)
@@ -184,7 +212,7 @@ def main_menu(cp, train_mode=True):
                 print("Error: no web driver object initialized.")
         elif choice == exit_choice:
             save_and_exit(cp)  # No return value
-
+        """
 
 def show_disclaimer():
     '''
