@@ -25,7 +25,7 @@ sbgrader2 next steps:
   * **DONE** example line: dirksm,function=piecewise,assign_d=False
   * **DONE** If user name not found, ask user if they want new log-in. Ask questions on preferences, and then add to user_prefs.txt
   * Use login to autofill Synergy username field
-  * toggle train mode (https://wa-bsd405.edupoint.com/train/Login.aspx)
+  * **DONE** toggle train mode (https://wa-bsd405.edupoint.com/train/Login.aspx)
   * **DONE**
 
 * better interface
@@ -36,14 +36,14 @@ sbgrader2 next steps:
   * Allow users to fill Synergy data twice without saving in between.
     * (Currently causes ElementClickInterceptedException).
   * Options:
-   1. Launch browser (TRAIN MODE or LIVE MODE)
+   1. **DONE** Launch browser (TRAIN MODE or LIVE MODE)
    2. Update overall grades on Synergy (= download grades, calculate overall, fill)
    3. Generate grade reports ( = download grades, generate reports)
    4. Change preferences
    5. Exit
   * Should not have to launch new browser for each data import!
   * If user navigates away from page and then comes back, the program crashes. Fix that.
-  * Big disclaimer that this script could break at any point if Synergy/Gradebook changes
+  * **DONE** Big disclaimer that this script could break at any point if Synergy/Gradebook changes
 
 * make repo public (sans bsd-specific stuff)
 
