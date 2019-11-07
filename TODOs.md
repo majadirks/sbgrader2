@@ -42,9 +42,9 @@ sbgrader2 next steps:
    4. Change preferences
      + Change preferences in place in file, rather than appending to the end.
    5. Exit
- * Should not have to launch new browser for each data import!
- * If user navigates away from page and then comes back, the program crashes. Fix that.
- * **DONE** Big disclaimer that this script could break at any point if Synergy/Gradebook changes
+  * Should not have to launch new browser for each data import!
+  * If user navigates away from page and then comes back, the program crashes. Fix that.
+  * **DONE** Big disclaimer that this script could break at any point if Synergy/Gradebook changes
 
 * make repo public (sans bsd-specific stuff)
 
