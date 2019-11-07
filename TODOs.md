@@ -49,3 +49,6 @@ sbgrader2 next steps:
 
 * Write up an install guide (for .exe or from source)
 * package as exe file (use py2exe)
+
+Selenium docs:
+https://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.remote.webdriver
