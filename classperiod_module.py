@@ -42,6 +42,7 @@ class ClassPeriod:
                 or 'sticky' as the function of choice in determining
                 the overall grade
             d_is_valid: True if D is a valid letter grade, False if not.
+            test_mode: if True, online gradebook will lanuch in test mode
         '''
         self.description = description
         self.students_in_period = students_in_period
@@ -342,7 +343,7 @@ if __name__ == "__main__":
     determines the path to save to by the ClassPeriod description.
     Therefore it cannot write the same ClassPeriod object to two distinct
     files.
- 
+
     # Don't overwrite "sample_classperiod.txt"
     # Instead, write cp to a new file.
     # Read that into a new ClassPeriod, cp2.

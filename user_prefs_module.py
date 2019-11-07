@@ -294,7 +294,6 @@ def update_prefs(prefs_dict, filename=DEFAULT_FILENAME):
 
 # Unit tests
 if __name__ == "__main__":
-    '''
     print("Testing get_prefs_of_all_users():")
     user_prefs = get_prefs_of_all_users()
     print(user_prefs)
@@ -315,7 +314,7 @@ if __name__ == "__main__":
     new_dict = add_new_user_to_file("smithj", "test_prefs.txt")
     print(new_dict)
     input("Pausing for visual inspection. Look at file 'test_prefs.txt'")
-    '''
+
     print("\n\nTesting def prefs_dict(username, list_of_user_prefs)")
     new_dict = prefs_dict('smithj',
                           ['user=smithj,' +
