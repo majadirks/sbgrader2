@@ -141,6 +141,7 @@ def main_menu(cp, train_mode=True):
     '''
     browser = False  # Initialize browser variable.
     browser_launched = False
+    data_downloaded = False
     exit_choice = 5
     choice = -1
     while choice != exit_choice:
@@ -165,9 +166,8 @@ def main_menu(cp, train_mode=True):
         print("=== OPTIONS ===")
         print("1. Launch Browser" + (" in test mode" * train_mode))
         print("2. Update preferences")
-        if browser_launched:
-            print("3. Calculate/Fill Overall Grades")
-            print("4. Generate grade reports")
+        print("3. Calculate/Fill Overall Grades" * browser_launched)
+        print("4. Generate grade reports" * browser_launched)
         print("5. Exit")
         choice_str = ""
         while True:
@@ -192,27 +192,13 @@ def main_menu(cp, train_mode=True):
             if bool(browser):
                 cp = synergy.create_classperiod_from_synergy(browser)
                 browser_launched = True
-
-        """
-        if choice == 1:
-            cp = add_student_interface(cp)
-        elif choice == 2:
-            cp = add_lt_interface(cp)
-        elif choice == 3:
-            cp = update_score_interface(cp)
-        elif choice == 4:
-            generate_reports_interface(cp)  # No return value
-        elif choice == 5:
-            browser = synergy.initialize_driver_with_user_input()
+        if choice == 2:
+            # TODO
+        if choice == 3 and browser_launched:
             cp = synergy.create_classperiod_from_synergy(browser)
-        elif choice == 6:
-            if bool(browser):
-                write_overall_grades_to_synergy(cp, browser)
-            else:
-                print("Error: no web driver object initialized.")
-        elif choice == exit_choice:
-            save_and_exit(cp)  # No return value
-        """
+        if choice == 4 and browser_launched:
+            generate_reports_interface(cp)
+
 
 def show_disclaimer():
     '''
