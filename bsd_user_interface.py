@@ -195,8 +195,12 @@ def main_menu(cp, train_mode=True):
         if choice == 2:
             # TODO
         if choice == 3 and browser_launched:
+            # Download data
             cp = synergy.create_classperiod_from_synergy(browser)
+            # Calculate and fill scores
+            write_overall_grades_to_synergy(cp, browser)
         if choice == 4 and browser_launched:
+            cp = synergy.create_classperiod_from_synergy(browser)
             generate_reports_interface(cp)
 
 
