@@ -23,6 +23,8 @@ from nitty_gritty_of_grading import DEFAULT_X_CODE
 # Global variables (shudder)
 # Keyword to look for in assignment name of 'overall grade' column
 OVERALL_GRADE_KEYWORD = 'IGNORE'
+SYNERGY_URL = 'https://wa-bsd405.edupoint.com/'
+SYNERGY_TRAIN_MODE_URL = 'https://wa-bsd405.edupoint.com/train/login.aspx'
 
 # Define functions
 
@@ -221,7 +223,7 @@ def get_lt_score_matrix(driver, list_of_lts):
         column_index += 1
     return (score_matrix, comment_matrix)
 
-    
+
 def DEPRECATED_get_lt_score_matrix(driver, list_of_lts):
     '''
     This function is deprecated.
@@ -265,7 +267,7 @@ def DEPRECATED_get_lt_score_matrix(driver, list_of_lts):
     return score_matrix
 
 
-def initialize_driver_with_user_input():
+def initialize_driver_with_user_input(synergy_url=SYNERGY_URL):
     '''
     This function opens a browser window and instructs a user to navigate
     to a gradebook page on Synergy.
@@ -279,9 +281,11 @@ def initialize_driver_with_user_input():
     print("4: Then come back here and press Enter.")
     # Launch Chrome and go to Synergy
     browser = webdriver.Chrome()
-    browser.get(
-            'https://wa-bsd405.edupoint.com/')
-    input("Press Enter to select current gradebook page>")
+    browser.get(synergy_url)
+    user_input = input("Press Enter to select current gradebook page " +
+                       "or 0 to cancel>")
+    if user_input.strip() == '0':
+        return False
     # Focus on source for main frame in current browser window
     browser.switch_to.frame(browser.find_element_by_id('FRAME_CONTENT'))
     try:
