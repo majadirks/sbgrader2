@@ -50,7 +50,7 @@
 # to implement them.
 
 # International School Teachers
-user=dirksm,function=piecewise,d_is_valid=False,train_mode=True
+user=dirksm,function=piecewise,d_is_valid=False,train_mode=False
 user=galvane,function=sticky,d_is_valid=False, train_mode=True
 user=lordenr,function=piecewise,d_is_valid=False, train_mode=True
 user=wallicks,function=sticky,d_is_valid=False, train_mode=True
