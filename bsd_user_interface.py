@@ -194,6 +194,7 @@ def main_menu(cp, train_mode=True):
                 browser_launched = True
         if choice == 2:
             # TODO
+            pass
         if choice == 3 and browser_launched:
             # Download data
             cp = synergy.create_classperiod_from_synergy(browser)
