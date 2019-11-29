@@ -40,6 +40,7 @@ sbgrader2 next steps:
    2. Update overall grades on Synergy (= download grades, calculate overall, fill)
    3. Generate grade reports ( = download grades, generate reports)
    4. Change preferences
+     + Change preferences in place in file, rather than appending to the end.
    5. Exit
   * Should not have to launch new browser for each data import!
   * If user navigates away from page and then comes back, the program crashes. Fix that.
