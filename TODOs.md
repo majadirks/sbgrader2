@@ -18,7 +18,7 @@ sbgrader2 next steps:
 
 * login (with district id) for different preferences
   * **DONE** prefs stored in user_prefs.txt
-  * ~~if only one user in file, defaults to that profile. (But confirms so that new account could be created if desired. ("Log in as smithj (y/n)?")!!
+  * ~~if only one user in file, defaults to that profile. (But confirms so that new account could be created if desired. ("Log in as smithj (y/n)?")!!~~
   * **DONE** Choose overall function: simple, piecewise, sticky
   * **DONE** Toggle whether D is a valid grade
   * **DONE** Lines starting with '#' are comments (to explain user_prefs file to anyone who opens it)
@@ -41,6 +41,7 @@ sbgrader2 next steps:
    3. Generate grade reports ( = download grades, generate reports)
    4. Change preferences
      + Change preferences in place in file, rather than appending to the end.
+     + 11/29/19 bug: update_prefs is not correctly adding new users to prefs file.
    5. Exit
   * Should not have to launch new browser for each data import!
   * If user navigates away from page and then comes back, the program crashes. Fix that.

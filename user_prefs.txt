@@ -66,3 +66,4 @@ user=strattonr,function=piecewise,d_is_valid=True, train_mode=True
 
 # Misc
 user=smithj,function=simple,d_is_valid=False,train_mode=False
+USER=JONESL,FUNCTION=STICKY,D_IS_VALID=False,TRAIN_MODE=True

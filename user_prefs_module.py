@@ -17,6 +17,14 @@ DEFAULT_FILENAME = "user_prefs.txt"
 # Else prompt to create new user.
 # Return a dictionary of username and prefs
 
+
+def normalize_prefs_dict(prefs_dict):
+    '''
+    Make all keys in a given dict uppercase.
+    '''
+    prefs_dict = {k.upper(): v for k, v in prefs_dict.items()}
+    return prefs_dict
+
 def get_prefs_of_all_users(filename=DEFAULT_FILENAME):
     '''
     Read in a data file and get a list of user pref strings.
@@ -155,6 +163,7 @@ def prefs_dict_to_prefs_str(prefs_dict):
     This function takes a prefs dict
     and converts it to a prefs string, which it returns.
     '''
+    prefs_dict = normalize_prefs_dict(prefs_dict)
     user = prefs_dict['USER']
     function = prefs_dict['FUNCTION']
     d_is_valid = prefs_dict['D_IS_VALID']
@@ -209,7 +218,7 @@ def add_new_user_to_file(login_id="", filename=DEFAULT_FILENAME):
     # Having stored all the prefs, add user to file
     prefs_str = prefs_dict_to_prefs_str(prefs_dict)
     with open(filename, "a") as file:
-        file.write(prefs_str)
+        file.write('\n' + prefs_str)
 
     # Finally, return the prefs dict
     return prefs_dict
@@ -261,33 +270,42 @@ def update_prefs(prefs_dict, filename=DEFAULT_FILENAME):
     If present, it deletes that user.
     Then it appends the user with updated prefs to the end of the file.
     '''
+    prefs_dict = normalize_prefs_dict(prefs_dict)
     search = prefs_dict['USER'] + "="
+    line_num = -1
+    user_already_present = False
+    lines = []
     try:
         with open(filename, "r") as file:
             # Copy the file into memory
             lines = file.readlines()
             # Remove user if present
-            for line in lines:
+            for line_num, line in enumerate(lines):
                 user_index = line.find(search)
                 comment_index = line.find('#')
             # Check if user occurs in line, not after comment
                 if user_index != -1:
-                    # Remove the line if user is mentioned
-                    # and line is not commented out
-                    if comment_index == -1:
-                        lines.remove(line)
-                        # Remove the line if user is mentioned
-                        # before a comment starts
-                    elif user_index < comment_index:
-                        lines.remove(line)
+                    # If the user is mentioned and line not commented out,
+                    # replace the line with new prefs string
+                    # and line is not commented out.
+                    # Same thing if user is mentioned before a comment
+                    # starts.
+                    user_already_present = True
+                    if comment_index == -1 or user_index < comment_index:
+                        lines[line_num] = prefs_dict_to_prefs_str(prefs_dict)
     # If file doesn't exist, don't worry about reading it.
     except FileNotFoundError:
         pass
+
+    # If user is not in file, append new line to end of list
+    if user_already_present is False:
+        lines.append(prefs_dict_to_prefs_str(prefs_dict))
+
     # At this point, the user should be removed if relevant.
-    # Append new prefs to end
-    prefs_str = prefs_dict_to_prefs_str(prefs_dict)
-    with open(filename, "a+") as file:
-        file.write(prefs_str)
+    # Replace old file text with contents of lines
+    with open(filename, "w+") as file:
+        print("Writing to file: \n" + '\n'.join(lines))
+        file.writelines(lines)
         return True
     return False  # This should never run
 
