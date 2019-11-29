@@ -256,6 +256,11 @@ def generate_reports(cp):
     The function returns True on success, False on failure.
     '''
     success = True
+    # Make directory for classperiod if it doesn't exist
+    directory = replace_punctuation_with_underscores(cp.description)
+    path = os.path.join('.', directory)
+    if not os.path.exists(path):
+        os.mkdir(path)
     for student in cp.students_in_period:
         date_str = str(datetime.datetime.now()).split(' ')[0]
         filename = "_".join([date_str,
