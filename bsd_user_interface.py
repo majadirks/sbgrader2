@@ -161,7 +161,7 @@ def save_and_exit(cp):
     sys.exit()
 
 
-def main_menu(cp, train_mode=True, prefs={}):
+def main_menu(cp, prefs={}):
     '''
     This function displays the str representation of a given ClassPeriod
     object and prompts the user to take an action.
@@ -179,6 +179,8 @@ def main_menu(cp, train_mode=True, prefs={}):
     choice = -1
     while choice != exit_choice:
 
+        # Check whether train mode is active.
+        train_mode = prefs['TRAIN_MODE']
 
         # Is browser still open?
         try:
@@ -197,7 +199,7 @@ def main_menu(cp, train_mode=True, prefs={}):
         print(cp)
         print("\n")
         print("=== OPTIONS ===")
-        print("1. Launch Browser" + (" in test mode" * train_mode))
+        print("1. Launch Browser" + (" in train mode" * train_mode))
         print("2. Update preferences")
         print("3. Calculate/Fill Overall Grades" * browser_launched)
         print("4. Generate grade reports" * browser_launched)
@@ -266,6 +268,5 @@ if __name__ == "__main__":
     # Look for user's preferences in 'user_prefs.txt'
     # Store prefs as dict.
     prefs_dict = upm.login_prompt(DEFAULT_PREFS_FILE)
-    train_mode = prefs_dict['TRAIN_MODE']
     empty_class = cpm.ClassPeriod('No Class Loaded')
-    main_menu(empty_class, train_mode, prefs_dict)
+    main_menu(empty_class, prefs_dict)
