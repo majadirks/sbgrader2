@@ -1,0 +1,167 @@
+# This file contains advice to give students in a few different situations.
+# For example, it contains advice for students who have As but have
+# not yet met all LTs, or for students who have Bs because they
+# do not have enough 4s in the gradebook.
+#
+# PLEASE DO NOT CHANGE THE HEADERS OF EACH SECTION.
+# The text below each header, however, may be edited freely.
+# Newlines within a comment will be read as spaces. To force a newline,
+# use the escape character combination '\n'.
+# Lines beginning with a '#' are comments and will be ignored
+# by the sbgrader program.
+# (Note, however, that this is not Python - sbgrader does not recognize
+# multi-line comments within triple quotes.)
+# You may also include certain numbers/variables to be calculated
+# when the reports are generated. These variables are enclosed
+# in {} brackets, such as {list_of_lts_below_standard}.
+#
+# The available variables are:
+# {list_of_3s} -- a list of LTs on which the student has 3s,
+#                 along with their brief descriptions.
+#                 (e.g. "LT01: Completing the Square")
+# {list_of_2s} -- list of LTs on which student has 2s
+# list_of_0s_and_1s} -- list of LTs on which student has 0s or 1s
+# {list_of_lts_below_standard} -- a list of learning targets on which
+#                                 the student is not yet meeting standard.
+# {min_4_count_for_A} -- a number equal to the number of LTs, divided by 2,
+#                        and rounded up (Minimum number of 4s for an A).
+# {min_count_of_lts_met_for_A} -- 90% of total LT count, rounded up
+# {min_count_of_lts_met_for_B} -- 80% of total LT count, rounded up
+# {min_count_of_lts_met_for_C} -- 65% of total LT count, rounded up
+# {min_count_of_lts_met_for_D} -- 50% of total LT count, rounded up
+# {total_lt_count} -- number of LTs in the gradebook
+# {count_of_lts_met}
+# {count_of_4s} -- number of 4s the student has earned
+# {count_of_3s} -- number of 3s the student has earned
+# {count_of_2s}
+# {count_of_1s}
+# {count_of_0s}
+# {count_of_0s_and_1s}
+
+def advice_for_A_with_all_LTs_met:
+#    This function returns an advice string for the scenario where a student
+#    is meeting all learning targets and qualifies for an A.
+You currently have an A, which reflects excellent achievement in this class.
+Keep working hard, and focus on studying the most recent material from class.
+
+
+def advice_for_A_without_all_LTs_met:
+#    This function returns an advice string for the scenario where a student
+#    qualifies for an A but is not yet meeting standard on all
+#    learning targets.
+#    It takes as an argument a list of LearningTarget objects representing
+#    LTs on which the student has earned 2.5 or below.
+You currently have an A, which reflects excellent achievement in this class.
+In order to make sure that you're building a strong foundation for future
+classes, you should study the learning targets where you are not yet
+meeting standard and try to deepen your understanding of those topics.\n\n
+You are showing a developing level of understanding
+on the following learning targets:\n
+{list_of_lts_below_standard}
+
+
+def advice_for_B_geq_90_pct:
+#    This function returns a string for the scenario in which a student
+#    is meeting more than 90% of the learning targets but has a B instead
+#    of an A. This scenario occurs if and only if the student has 3s on
+#    over 50% of the learning targets.
+#
+# For purposes of plurals, we may assume that there is more than one LT in
+# the gradebook, since it is impossible to earn a B when there are fewer
+# than five LTs.
+You currently have a B, which means that your work in this class exceeds
+expectations. You are meeting standard on more than 90% of the
+learning targets. Currently, out of the {total_lt_count} learning targets
+in the grade book, you are meeting standard (earning 3s) on {count_of_3s}
+and exceeding standard (earning 4s) on an additional {count_of_4s}.\n
+In order to raise your grade to an A, you need to exceed standard on
+at least half of the learning targets, i.e. {min_4_count_for_A} of
+the LTs.\n\n
+You are meeting (but not yet exceeding) standard on the
+following learning targets:\n
+{list_of_3s}
+
+
+def advice_for_B_under_90:
+#    This function returns an advice string for the scenario in which a student
+#    has a B and is not yet meeting 90% of learning targets.
+You currently have a B, which means that your work in this class
+exceeds expectations. Currently, out of the {total_lt_count} learning targets
+in the grade book, you are meeting standard (earning 3s) on {count_of_3s}
+and exceeding standard (4) on an additional {count_of_4s}.\n
+In order to raise your grade to an A, you need to meet standard on 90%
+(or {min_count_of_lts_met_for_A}) of the learning targets. You also need
+to make sure that at least half of the learning targets
+(at least {min_4_count_for_A} of the learning targets)
+are at the 4 level (exceeding standard).\n\n
+Your first priority should be to study the following learning targets
+on which you are not yet meeting standard:\n
+{list_of_2s}
+\n\n
+Your second priority should be to study learning targets on which you
+are meeting (but not yet exceeding) standard:\n
+{list_of_3s}
+
+
+def advice_for_C_geq_80:
+#    This function returns an advice string for the scenario in which a student
+#    has a C in the course despite having passed over 80% of the LTs.
+#    This scenario occurs if and only if a student has 0s or 1s in the
+#    gradebook.
+#
+# We have to worry about plurals here. For now, deal with the ambiguity
+# with the construction 'learning target(s)'
+You currently have a C in this course, which means that your work in this
+course is meeting expectations.\n
+There are {count_of_0s_and_1s} learning target(s) on which you have
+provided an incomplete response or on which there is no basis for assessment.
+In order to raise your grade to an A or a B, you should focus on those
+learning targets. As long as you have any 0s or 1s in the gradebook,
+a C is the highest grade you can earn.\n\n
+You should focus on studying the following learning targets:\n
+{list_of_0s_and_1s}
+
+
+
+def advice_for_C_under_80:
+#    This function returns an advice string for the scenario in which
+#    a student has a C because they are meeting between 65% and 79%
+#    of learning targets.
+You currently have a C in this course, which means that your work in
+this course is meeting expectations.\n
+Currently, out of the {total_lt_count} learning targets
+in the grade book, you are meeting or exceeding
+standard on {count_of_lts_met}.
+In order to earn a B, you need to meet or exceed standard on at least 80%
+of the learning targets (i.e. {min_count_of_lts_met_for_B} of the learning
+targets).\n\n
+You should focus on studying the following learning targets:\n"
+{list_of_lts_below_standard}
+
+
+def advice_for_D:
+#    Advice for student who has a D.
+You currently have a D, which means that your work in this course is not
+yet satisfactory. In order to raise your grade to a C, you need to meet
+or exceed standard on at least 65% of the learning targets
+(i.e. {min_count_of_lts_met_for_C} of the learning targets)\n\n
+You should focus on studying the following learning targets:\n"
+{list_of_lts_below_standard}
+
+
+def advice_for_F:
+#    Advice for student who has an F.
+Your grade is currently an F, which means you are not yet eligible for
+credit for this course. In order to raise your grade to a D,
+you need to meet or exceed standard on at least 50% of the learning targets
+(i.e. {min_count_of_lts_met_for_D} of the learning targets).\n\n
+You should focus on studying the following learning targets:\n
+{list_of_lts_below_standard}
+
+
+def advice_when_no_LTs_in_gradebook:
+#    Advice for student who has an F simply because they have taken
+#    no assessments.
+Your grade is currently reported as an F. This is because there are no
+assessment scores for you yet. You can expect your grade to change as soon
+as you complete an assessment.
