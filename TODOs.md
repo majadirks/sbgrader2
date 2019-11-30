@@ -37,15 +37,15 @@ sbgrader2 next steps:
     * (Currently causes ElementClickInterceptedException).
   * Options:
    1. **DONE** Launch browser (TRAIN MODE or LIVE MODE)
-   2. Update overall grades on Synergy (= download grades, calculate overall, fill)
-   3. Generate grade reports ( = download grades, generate reports)
-   4. Change preferences
+   2. **DONE** Update overall grades on Synergy (= download grades, calculate overall, fill)
+   3. **DONE** Generate grade reports ( = download grades, generate reports)
+   4. **DONE** Change preferences
       + **DONE** Change preferences in place in file, rather than appending to the end.
       + **FIXED** 11/29/19 bug: update_prefs is not correctly adding new users to prefs file.
       + **DONE** Adding user to prefs file should check to make sure user isn't yet present,
     and if user is present, update instead.
       + **DONE** After prefs are updated in the file, reload relevant prefs (i.e. train mode)
-   5. Exit
+   5. **DONE** Exit
   * Should not have to launch new browser for each data import!
   * If user navigates away from page and then comes back, the program crashes. Fix that.
   * **DONE** Big disclaimer that this script could break at any point if Synergy/Gradebook changes
