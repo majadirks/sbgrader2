@@ -42,6 +42,8 @@ sbgrader2 next steps:
    4. Change preferences
      + Change preferences in place in file, rather than appending to the end.
      + 11/29/19 bug: update_prefs is not correctly adding new users to prefs file.
+     + Adding user to prefs file should check to make sure user isn't yet present,
+    and if user is present, update instead.
    5. Exit
   * Should not have to launch new browser for each data import!
   * If user navigates away from page and then comes back, the program crashes. Fix that.
