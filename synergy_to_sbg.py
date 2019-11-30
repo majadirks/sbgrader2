@@ -12,6 +12,9 @@ Dependencies:
 
 # import modules
 from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException, \
     ElementClickInterceptedException
@@ -432,6 +435,16 @@ def fill_overall_scores(driver,
     # Switch focus back to grades frame
     driver.switch_to.default_content
     return True
+
+
+def fill_username_on_home(driver, username):
+    '''
+    This function fills in a given username on the Synergy login page.
+    '''
+    input_elt = WebDriverWait(driver, 15).until(
+            EC.presence_of_element_located((By.ID, "Login")))
+    input_elt = driver.find_element_by_id('Login')
+    input_elt.send_keys(username)
 
 
 # Main code

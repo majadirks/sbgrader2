@@ -225,6 +225,8 @@ def main_menu(cp, prefs={}):
             # If user cancelled browser by entering 0,
             # the following conditional does not run.
             if bool(browser):
+                # Auto fill username
+                # synergy.fill_username_on_home(browser, prefs['USER'])
                 cp = synergy.create_classperiod_from_synergy(browser)
                 browser_launched = True
         if choice == 2:
