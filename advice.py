@@ -111,9 +111,13 @@ def read_templates_from_file_to_dict(student,
 
         # Make replacements in lines
         for line in lines:
+            # Ignore any commented lines
+            if lines[0] == '#':
+                lines.remove(line)
+            # Replace variable names with values
             for varname in vars_dict.keys()
                 line.replace(varname, vars_dict[varname])
-#TODO: finish
+
 
 pass
 
