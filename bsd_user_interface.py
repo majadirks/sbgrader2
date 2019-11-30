@@ -15,9 +15,10 @@ import synergy_to_sbg as synergy
 import user_prefs_module as upm
 from os import path
 
-# Constants
+# Global Variables (shudder)
 DEFAULT_CP_DESCRIPTION = 'sample_classperiod'
 DEFAULT_OVERALL_KEYWORD = 'ignore'
+DEFAULT_PREFS_FILE = 'user_prefs.txt'
 
 
 """
@@ -100,6 +101,29 @@ def import_from_synergy(driver):
     '''
     return synergy.create_classperiod_from_synergy(driver)
 
+def update_prefs_interface(username, prefs_file=DEFAULT_PREFS_FILE):
+    '''
+    This function will prompt the user for their username.
+
+    If the username is not in the given prefs file, an error is displayed
+    and the function returns False.
+
+    Otherwise, the user is presented with prompts for new preference values
+    and the file is updated accordingly.
+
+    Arguments: (i) username, a string, and
+               (ii) prefsfile (optional), a string specifying the file path
+    '''
+    user_in_file = username in upm.get_list_of_users(
+                                    upm.get_prefs_of_all_users(prefs_file))
+    if not(user_in_file):
+        print(f"Error: user {username} not found in file {prefs_file}")
+        input("Press Enter > ")
+        return False
+
+    print("Function update_prefs_interface not yet implemented!")
+    input("Press enter >")
+    pass
 
 def write_overall_grades_to_synergy(cp, driver):
     '''
@@ -130,7 +154,7 @@ def save_and_exit(cp):
     sys.exit()
 
 
-def main_menu(cp, train_mode=True):
+def main_menu(cp, train_mode=True, prefs={}):
     '''
     This function displays the str representation of a given ClassPeriod
     object and prompts the user to take an action.
@@ -138,6 +162,8 @@ def main_menu(cp, train_mode=True):
         (i) cp, a ClassPerid object,
         (ii) train_mode, a boolean indicating whether the online
             gradebook should launch in training mode
+        (iii) prefs, an optional argument. This is a dictionary
+              specifying user preferences.
     '''
     browser = False  # Initialize browser variable.
     browser_launched = False
@@ -193,8 +219,7 @@ def main_menu(cp, train_mode=True):
                 cp = synergy.create_classperiod_from_synergy(browser)
                 browser_launched = True
         if choice == 2:
-            # TODO
-            pass
+            update_prefs_interface(prefs['USER'])
         if choice == 3 and browser_launched:
             # Download data
             cp = synergy.create_classperiod_from_synergy(browser)
@@ -232,7 +257,7 @@ if __name__ == "__main__":
     # Prompt for login.
     # Look for user's preferences in 'user_prefs.txt'
     # Store prefs as dict.
-    prefs_dict = upm.login_prompt('user_prefs.txt')
+    prefs_dict = upm.login_prompt(DEFAULT_PREFS_FILE)
     train_mode = prefs_dict['TRAIN_MODE']
     empty_class = cpm.ClassPeriod('No Class Loaded')
-    main_menu(empty_class, train_mode)
+    main_menu(empty_class, train_mode, prefs_dict)
