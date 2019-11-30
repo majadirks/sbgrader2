@@ -164,14 +164,14 @@ def prefs_dict_to_prefs_str(prefs_dict):
     and converts it to a prefs string, which it returns.
     '''
     prefs_dict = normalize_prefs_dict(prefs_dict)
-    user = prefs_dict['USER']
-    function = prefs_dict['FUNCTION']
-    d_is_valid = prefs_dict['D_IS_VALID']
-    train_mode = prefs_dict['TRAIN_MODE']
+    user = prefs_dict['USER'].upper()
+    function = prefs_dict['FUNCTION'].upper()
+    d_is_valid = str(prefs_dict['D_IS_VALID']).upper()
+    train_mode = str(prefs_dict['TRAIN_MODE']).upper()
     prefs_str = ("USER=" + user +
                  ",FUNCTION=" + function +
-                 ",D_IS_VALID=" + str(d_is_valid) +
-                 ",TRAIN_MODE=" + str(train_mode) +
+                 ",D_IS_VALID=" + d_is_valid +
+                 ",TRAIN_MODE=" + train_mode +
                  "\n")
     return prefs_str
 
@@ -228,6 +228,7 @@ def update_prefs(prefs_dict, filename=DEFAULT_FILENAME):
         file.writelines(lines)
         return True
     return False  # This should never run
+
 
 def add_new_user_to_file(login_id="", filename=DEFAULT_FILENAME):
     '''
