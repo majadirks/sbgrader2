@@ -18,6 +18,7 @@ from math import ceil  # ceiling function
 import lt_module as ltm
 
 
+
 def extract_LT_list_by_score(search, student, list_of_all_LTs):
     '''
     This function takes two arguments:
@@ -39,6 +40,16 @@ def extract_LT_list_by_score(search, student, list_of_all_LTs):
                 ltm.lt_with_label(lt_label, list_of_all_LTs))
     return list_of_LTs_with_desired_score
 
+def read_templates_from_file_to_dict(filename="advice_template.txt"):
+    '''
+    This function reads boilerplate from a data file.
+    It replaces specific variables with appropriate values.
+    Any newline characters are changed to spaces,
+    and then the '\n' combination is changed to newlines.
+    Finally, the text is stored in a dictionary
+    which this function returns.
+    '''
+pass
 
 def advice_for_A_with_all_LTs_met():
     '''
@@ -131,7 +142,7 @@ def advice_for_B_under_90(list_of_2s, list_of_3s, count_of_4s, total_lt_count):
               f"standard on 90% (or {min_count_of_lts_met_for_A}) of the " +
               "learning targets. You also need to make sure that at least " +
               "half of the learning targets " +
-              "(at least {min_4_count_for_A} of the Learning Targets) " +
+              f"(at least {min_4_count_for_A} of the Learning Targets) " +
               "are at the 4 level (exceeding standard).\n\nYour first " +
               "priority should be to study the following learning targets " +
               "on which you are not yet meeting standard:\n")
