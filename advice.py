@@ -49,7 +49,7 @@ def read_templates_from_file_to_dict(student,
     This function reads boilerplate from a data file.
     It replaces specific variables with appropriate values.
     Any newline characters are changed to spaces,
-    and then the '\n' combination is changed to newlines.
+    and the '\n' combination is changed to newlines.
     Finally, the text is stored in a dictionary
     which this function returns.
     Arguments:
@@ -106,7 +106,8 @@ def read_templates_from_file_to_dict(student,
                    '{count_of_3s}': count_of_3s,
                    '{count_of_2s}': count_of_2s,
                    '{count_of_0s_and_1s}': count_of_0s_and_1s,
-                   '{count_of_lts_met}':, count_of_lts_met}
+                   '{count_of_lts_met}': count_of_lts_met,
+                   '\\n': '\n'}
 
         # Make replacements in lines
         for line in lines:
