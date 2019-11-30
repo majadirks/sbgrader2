@@ -67,57 +67,64 @@ def read_templates_from_file_to_dict(student,
         print(f"Error: file {filename} not found.")
         exit()
 
-        # Prepare variables to use
-        total_lt_count = len(list_of_all_LTs)
-        list_of_4s = ltm.rows_of_lt_briefs(
-                extract_LT_list_by_score(4, student, list_of_all_LTs))
-        list_of_3s = ltm.rows_of_lt_briefs(
-                extract_LT_list_by_score(3, student, list_of_all_LTs))
-        list_of_2s = ltm.rows_of_lt_briefs(
-                extract_LT_list_by_score(2, student, list_of_all_LTs))
-        list_of_0s_and_1s = ltm.rows_of_lt_briefs(
-                extract_LT_list_by_score(0, student, list_of_all_LTs)) +\
+    # Prepare variables to use
+    total_lt_count = len(list_of_all_LTs)
+    list_of_4s = ltm.rows_of_lt_briefs(
+            extract_LT_list_by_score(4, student, list_of_all_LTs))
+    list_of_3s = ltm.rows_of_lt_briefs(
+            extract_LT_list_by_score(3, student, list_of_all_LTs))
+    list_of_2s = ltm.rows_of_lt_briefs(
+               extract_LT_list_by_score(2, student, list_of_all_LTs))
+    list_of_0s_and_1s = ltm.rows_of_lt_briefs(
+            extract_LT_list_by_score(0, student, list_of_all_LTs)) +\
             ltm.rows_of_lt_briefs(
-                        extract_LT_list_by_score(1, student, list_of_all_LTs))
-        list_of_lts_below_standard = list_of_2s + list_of_0s_and_1s
-        min_4_count_for_a = ceil(total_lt_count * 0.5)
-        min_count_of_lts_met_for_A = ceil(total_lt_count * 0.9)
-        min_count_of_lts_met_for_B = ceil(total_lt_count * 0.8)
-        min_count_of_lts_met_for_C = ceil(total_lt_count * 0.65)
-        min_count_of_lts_met_for_D = ceil(total_lt_count * 0.5)
-        count_of_4s = len(list_of_4s)
-        count_of_3s = len(list_of_3s)
-        count_of_2s = len(list_of_2s)
-        count_of_0s_and_1s = len(list_of_0s_and_1s)
-        count_of_lts_met = count_of_4s + count_of_3s
+                extract_LT_list_by_score(1, student, list_of_all_LTs))
+    list_of_lts_below_standard = list_of_2s + list_of_0s_and_1s
+    min_4_count_for_a = ceil(total_lt_count * 0.5)
+    min_count_of_lts_met_for_A = ceil(total_lt_count * 0.9)
+    min_count_of_lts_met_for_B = ceil(total_lt_count * 0.8)
+    min_count_of_lts_met_for_C = ceil(total_lt_count * 0.65)
+    min_count_of_lts_met_for_D = ceil(total_lt_count * 0.5)
+    count_of_4s = len(list_of_4s)
+    count_of_3s = len(list_of_3s)
+    count_of_2s = len(list_of_2s)
+    count_of_0s_and_1s = len(list_of_0s_and_1s)
+    count_of_lts_met = count_of_4s + count_of_3s
 
-        # Dict to govern replacements
-        vars_dict={'{total_lt_count}': total_lt_count,
-                   '{list_of_4s}': list_of_4s,
-                   '{list_of_3s}': list_of_3s,
-                   '{list_of_2s}': list_of_2s,
-                   '{list_of_0s_and_1s}': list_of_0s_and_1s,
-                   '{min_4_count_for_a}': min_4_count_for_a,
-                   '{min_count_of_lts_met_for_A}': min_count_of_lts_met_for_A,
-                   '{min_count_of_lts_met_for_B}': min_count_of_lts_met_for_B,
-                   '{min_count_of_lts_met_for_C}': min_count_of_lts_met_for_C
-                   '{min_count_of_lts_met_for_D}': min_count_of_lts_met_for_D
-                   '{count_of_4s}':  count_of_4s,
-                   '{count_of_3s}': count_of_3s,
-                   '{count_of_2s}': count_of_2s,
-                   '{count_of_0s_and_1s}': count_of_0s_and_1s,
-                   '{count_of_lts_met}': count_of_lts_met,
-                   '\\n': '\n'}
+    # Dict to govern replacements
+    vars_dict={'{total_lt_count}': total_lt_count,
+              '{list_of_4s}': list_of_4s,
+              '{list_of_3s}': list_of_3s,
+              '{list_of_2s}': list_of_2s,
+              '{list_of_0s_and_1s}': list_of_0s_and_1s,
+              '{min_4_count_for_a}': min_4_count_for_a,
+              '{min_count_of_lts_met_for_A}': min_count_of_lts_met_for_A,
+              '{min_count_of_lts_met_for_B}': min_count_of_lts_met_for_B,
+              '{min_count_of_lts_met_for_C}': min_count_of_lts_met_for_C
+              '{min_count_of_lts_met_for_D}': min_count_of_lts_met_for_D
+              '{count_of_4s}':  count_of_4s,
+              '{count_of_3s}': count_of_3s,
+              '{count_of_2s}': count_of_2s,
+              '{count_of_0s_and_1s}': count_of_0s_and_1s,
+              '{count_of_lts_met}': count_of_lts_met,
+              '\\n': '\n'}
 
-        # Make replacements in lines
-        for line in lines:
-            # Ignore any commented lines
-            if lines[0] == '#':
-                lines.remove(line)
-            # Replace variable names with values
-            for varname in vars_dict.keys()
-                line.replace(varname, vars_dict[varname])
+    # Make replacements in lines
+    for line in lines:
+        # Ignore any commented lines
+        if lines[0] == '#':
+            lines.remove(line)
+        # Replace variable names with values
+        for varname in vars_dict.keys()
+            line.replace(varname, vars_dict[varname])
 
+    advice_dict = {}
+
+    # Find advice_for_A_with_all_LTs_met
+    advice_for_a_with_all_LTs_met_list = []
+    for line in lines:
+        if 'def advice_for_a_with_all_lts_met:' in line.lower():
+            pass # TODO
 
 pass
 
