@@ -235,10 +235,8 @@ def add_new_user_to_file(login_id="", filename=DEFAULT_FILENAME):
     This function takes a login id and a filename.
     It prompts the user to choose preferences,
     and then adds the new user to the file.
-
-    TODO: If the user is already present in the file,
+    If the user is already present in the file,
     it updates that user's prefs instead of appending a new line.
-
     The function returns a dict of the new user's preferences.
     e.g. :
     {'user': 'smithj', 'function': 'sticky',

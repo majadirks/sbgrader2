@@ -111,6 +111,9 @@ def update_prefs_interface(username, prefs_file=DEFAULT_PREFS_FILE):
     Otherwise, the user is presented with prompts for new preference values
     and the file is updated accordingly.
 
+    On success, the function returns the new prefs dict.
+    On failure, it returns false.
+
     Arguments: (i) username, a string, and
                (ii) prefsfile (optional), a string specifying the file path
     '''
@@ -120,10 +123,14 @@ def update_prefs_interface(username, prefs_file=DEFAULT_PREFS_FILE):
         print(f"Error: user {username} not found in file {prefs_file}")
         input("Press Enter > ")
         return False
-
-    print("Function update_prefs_interface not yet implemented!")
-    input("Press enter >")
-    pass
+    else:
+        # The following function is called add_new_user_to_file,
+        # but if the user is present it will update the existing line
+        # instead of adding a new user.
+        try:
+            return upm.add_new_user_to_file(username, prefs_file)
+        except:
+            return False
 
 def write_overall_grades_to_synergy(cp, driver):
     '''
@@ -219,7 +226,8 @@ def main_menu(cp, train_mode=True, prefs={}):
                 cp = synergy.create_classperiod_from_synergy(browser)
                 browser_launched = True
         if choice == 2:
-            update_prefs_interface(prefs['USER'])
+            # Update prefs in file and update the current prefs dict
+            prefs = update_prefs_interface(prefs['USER'])
         if choice == 3 and browser_launched:
             # Download data
             cp = synergy.create_classperiod_from_synergy(browser)

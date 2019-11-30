@@ -41,8 +41,6 @@
 #
 # Other Notes:
 # Feel free to delete all lines with other usernames.
-# If only one username is in the file, the program will
-# take that user as the default user.
 #
 # The preferences below are my (Dirks's) best guess at what you
 # are using. Obviously feel free to change if I guessed incorrectly,
@@ -50,7 +48,7 @@
 # to implement them.
 
 # International School Teachers
-user=dirksm,function=piecewise,d_is_valid=False,train_mode=False
+USER=DIRKSM,FUNCTION=PIECEWISE,D_IS_VALID=FALSE,TRAIN_MODE=FALSE
 user=galvane,function=sticky,d_is_valid=False, train_mode=True
 user=lordenr,function=piecewise,d_is_valid=False, train_mode=True
 user=wallicks,function=sticky,d_is_valid=False, train_mode=True
@@ -66,4 +64,3 @@ user=strattonr,function=piecewise,d_is_valid=True, train_mode=True
 
 # Misc
 user=smithj,function=simple,d_is_valid=False,train_mode=False
-USER=JONESL,FUNCTION=STICKY,D_IS_VALID=False,TRAIN_MODE=True
