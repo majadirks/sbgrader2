@@ -16,6 +16,7 @@ are based on Bellevue School District Procedure 2420P:
 # import modules
 from math import ceil  # ceiling function
 import lt_module as ltm
+from sys import exit
 
 
 
@@ -40,7 +41,10 @@ def extract_LT_list_by_score(search, student, list_of_all_LTs):
                 ltm.lt_with_label(lt_label, list_of_all_LTs))
     return list_of_LTs_with_desired_score
 
-def read_templates_from_file_to_dict(filename="advice_template.txt"):
+
+def read_templates_from_file_to_dict(student,
+                                     list_of_all_LTs,
+                                     filename="advice_template.txt"):
     '''
     This function reads boilerplate from a data file.
     It replaces specific variables with appropriate values.
@@ -48,7 +52,68 @@ def read_templates_from_file_to_dict(filename="advice_template.txt"):
     and then the '\n' combination is changed to newlines.
     Finally, the text is stored in a dictionary
     which this function returns.
+    Arguments:
+        (i) a Student object
+        (ii) a list of LearningTarget objects that holds (at minimum)
+            all LTs on which the student has been assessed.
+        (iii) A file name for a file holding advice boilerplate
+
     '''
+    # Open file and read lines into a list, 'lines'.
+    try:
+        with open(filename, 'r') as file:
+            lines = file.readlines()
+    except FileNotFoundError:
+        print(f"Error: file {filename} not found.")
+        exit()
+
+        # Prepare variables to use
+        total_lt_count = len(list_of_all_LTs)
+        list_of_4s = ltm.rows_of_lt_briefs(
+                extract_LT_list_by_score(4, student, list_of_all_LTs))
+        list_of_3s = ltm.rows_of_lt_briefs(
+                extract_LT_list_by_score(3, student, list_of_all_LTs))
+        list_of_2s = ltm.rows_of_lt_briefs(
+                extract_LT_list_by_score(2, student, list_of_all_LTs))
+        list_of_0s_and_1s = ltm.rows_of_lt_briefs(
+                extract_LT_list_by_score(0, student, list_of_all_LTs)) +\
+            ltm.rows_of_lt_briefs(
+                        extract_LT_list_by_score(1, student, list_of_all_LTs))
+        list_of_lts_below_standard = list_of_2s + list_of_0s_and_1s
+        min_4_count_for_a = ceil(total_lt_count * 0.5)
+        min_count_of_lts_met_for_A = ceil(total_lt_count * 0.9)
+        min_count_of_lts_met_for_B = ceil(total_lt_count * 0.8)
+        min_count_of_lts_met_for_C = ceil(total_lt_count * 0.65)
+        min_count_of_lts_met_for_D = ceil(total_lt_count * 0.5)
+        count_of_4s = len(list_of_4s)
+        count_of_3s = len(list_of_3s)
+        count_of_2s = len(list_of_2s)
+        count_of_0s_and_1s = len(list_of_0s_and_1s)
+        count_of_lts_met = count_of_4s + count_of_3s
+
+        # Dict to govern replacements
+        vars_dict={'{total_lt_count}': total_lt_count,
+                   '{list_of_4s}': list_of_4s,
+                   '{list_of_3s}': list_of_3s,
+                   '{list_of_2s}': list_of_2s,
+                   '{list_of_0s_and_1s}': list_of_0s_and_1s,
+                   '{min_4_count_for_a}': min_4_count_for_a,
+                   '{min_count_of_lts_met_for_A}': min_count_of_lts_met_for_A,
+                   '{min_count_of_lts_met_for_B}': min_count_of_lts_met_for_B,
+                   '{min_count_of_lts_met_for_C}': min_count_of_lts_met_for_C
+                   '{min_count_of_lts_met_for_D}': min_count_of_lts_met_for_D
+                   '{count_of_4s}':  count_of_4s,
+                   '{count_of_3s}': count_of_3s,
+                   '{count_of_2s}': count_of_2s,
+                   '{count_of_0s_and_1s}': count_of_0s_and_1s,
+                   '{count_of_lts_met}':, count_of_lts_met}
+
+        # Make replacements in lines
+        for line in lines:
+            for varname in vars_dict.keys()
+                line.replace(varname, vars_dict[varname])
+#TODO: finish
+
 pass
 
 def advice_for_A_with_all_LTs_met():

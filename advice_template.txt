@@ -16,9 +16,10 @@
 # in {} brackets, such as {list_of_lts_below_standard}.
 #
 # The available variables are:
-# {list_of_3s} -- a list of LTs on which the student has 3s,
+# {list_of_4s)-- a list of LTs on which the student has 4s,
 #                 along with their brief descriptions.
 #                 (e.g. "LT01: Completing the Square")
+# {list_of_3s} -- list of LTs on which student has 3s
 # {list_of_2s} -- list of LTs on which student has 2s
 # list_of_0s_and_1s} -- list of LTs on which student has 0s or 1s
 # {list_of_lts_below_standard} -- a list of learning targets on which
@@ -34,8 +35,6 @@
 # {count_of_4s} -- number of 4s the student has earned
 # {count_of_3s} -- number of 3s the student has earned
 # {count_of_2s}
-# {count_of_1s}
-# {count_of_0s}
 # {count_of_0s_and_1s}
 
 def advice_for_A_with_all_LTs_met:
