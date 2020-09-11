@@ -49,7 +49,8 @@ This repository contains some files with sample data.
 
 ## References
 A useful reference on Standards Based Grading is the book *Classroom Assessment and Grading That Work* by Robert J. Marzano (2006).
-A thoughtful reference is the book *Grading for Equity* by Joe Feldman (2018), which argues for an SBG-like system as more equitable than the traditional American grading system.
+
+Another useful reference is the book *Grading for Equity* by Joe Feldman (2018), which argues for an SBG-like system as more equitable than the traditional American grading system.
 
 ## Acknowledgements
 I would like to thank Ed Orsini for his help, feedback, and encouragement throughout this course.
