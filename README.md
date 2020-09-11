@@ -21,7 +21,7 @@ Standards-Based Grading (SBG) is a system in which student grades are reported f
 * To earn a C, a student must earn 3s and 4s on at least 65% of the LTs.
 * To earn a D, a student must earn 3s and 4s on at least 50% of the LTs.
 
-This program implements a gradebook for standards-based grading with some basic functionality. It loads a sample class period and allows a user to add new students to the class, add learning targets to the class, and update student scores to reflect recent reassessments. It also allows a user to generate grade reports for each student in a class. These reports show each student’s most recent score on each learning target, prior scores, an overall grade, and advice to the student on how to raise their grade. Finally, the program reads data from and writes data to files so that changes are saved between sessions.
+This program implements a gradebook for standards-based grading with some basic functionality. It loads a sample class period and allows a user to add new students to the class, add learning targets to the class, and update student scores to reflect recent reassessments. It also allows a user to generate grade reports for each student in a class. These reports show each studentâ€™s most recent score on each learning target, prior scores, an overall grade, and advice to the student on how to raise their grade. Finally, the program reads data from and writes data to files so that changes are saved between sessions.
 
 ## Running the Demo Interface
 In order to demonstrate some features of this program, **run the code contained in sbgrader.py**. This will bring up a text-based interface. A sample gradebook is displayed, having either been read in from a data file or created anew. Overall grades are not displayed; those may be seen in generated grade reports (option 4 in the menu).
@@ -44,10 +44,12 @@ This repository contains some files with sample data.
 * The file sample_classperiod_lts.ltdat contains some sample learning targets
 
 ## Known Issues
-If a learning target description contains a newline character, the LT cannot be correctly saved to or read from a file.
+* If a learning target description contains a newline character, the LT cannot be correctly saved to or read from a file.
+* I started trying to integrade this code with my district's Student Information System, but never completed that chunk of the project.
 
 ## References
 A useful reference on Standards Based Grading is the book *Classroom Assessment and Grading That Work* by Robert J. Marzano (2006).
+A thoughtful reference is the book *Grading for Equity* by Joe Feldman (2018), which argues for an SBG-like system as more equitable than the traditional American grading system.
 
 ## Acknowledgements
 I would like to thank Ed Orsini for his help, feedback, and encouragement throughout this course.
